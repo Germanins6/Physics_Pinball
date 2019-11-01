@@ -6,10 +6,11 @@
 #include "ModuleTextures.h"
 #include "ModuleAudio.h"
 #include "ModulePhysics.h"
-
+#include "ModulePlayer.h"
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	circle = box = rick = NULL;
+	textthrower = background = NULL;
 	ray_on = false;
 	sensed = false;
 
@@ -34,11 +35,17 @@ bool ModuleSceneIntro::Start()
 
 	App->renderer->camera.x = App->renderer->camera.y = 0;
 
-	circle = App->textures->Load("pinball/wheel.png"); 
-	box = App->textures->Load("pinball/crate.png");
-	rick = App->textures->Load("pinball/rick_head.png");
-	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
+	//circle = App->textures->Load("sprites/ball1.png"); 
+	//box = App->textures->Load("pinball/crate.png");
+	//rick = App->textures->Load("pinball/rick_head.png");
+	//bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
+	
+	//Background
 	background = App->textures->Load("sprites/background.png");
+
+	//Thrower
+	thrower = App->physics->CreateRectangle(555, 951, 35, 100);
+	textthrower = App->textures->Load("sprites/thrower.png");
 	sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH / 2, SCREEN_HEIGHT, SCREEN_WIDTH, 50);
 
 	//Monkey planks
@@ -239,7 +246,8 @@ bool ModuleSceneIntro::Start()
 bool ModuleSceneIntro::CleanUp()
 {
 	LOG("Unloading Intro scene");
-
+	App->textures->Unload(background);
+	App->textures->Unload(textthrower);
 	return true;
 }
 
@@ -248,9 +256,27 @@ update_status ModuleSceneIntro::Update()
 {
 	App->renderer->Blit(background, 0, 0, NULL);
 
-	//m
-
-
+	//ball
+	if (App->player->ball != nullptr)
+	{
+		int x, y;
+		App->player->ball->GetPosition(x, y);
+		App->renderer->Blit(App->player->textball, x, y);
+	}
+	//thrower
+	if (App->player->thrower == true)
+	{
+		int x, y;
+		App->scene_intro->thrower->GetPosition(x, y);
+		App->renderer->Blit(App->scene_intro->textthrower, x, y + 2 - (int)App->player->vely * 1.5f);
+	}
+	else
+	{
+		int x, y;
+		thrower->GetPosition(x, y);
+		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_IDLE)
+			App->renderer->Blit(textthrower, x, y + 2);
+	}
 
 
 	if(App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
@@ -262,8 +288,9 @@ update_status ModuleSceneIntro::Update()
 
 	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
-		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 25));
-		circles.getLast()->data->listener = this;
+		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(),14,true,0.1f));
+		App->renderer->Blit(circle, App->input->GetMouseX(), App->input->GetMouseY());
+		//circles.getLast()->data->listener = this;
 	}
 
 	if(App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
@@ -379,7 +406,10 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 {
 	int x, y;
 
-	App->audio->PlayFx(bonus_fx);
+	if (bodyB == thrower)
+		ballthrow = true;
+	else
+		ballthrow = false;
 
 	/*
 	if(bodyA)

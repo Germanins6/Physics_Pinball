@@ -1,10 +1,40 @@
-﻿  ModuleSceneIntro.cpp
-c:\users\pol\documents\github\physics_pinball\modulesceneintro.cpp(380): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-c:\users\pol\documents\github\physics_pinball\modulesceneintro.cpp(382): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-c:\users\pol\documents\github\physics_pinball\modulesceneintro.cpp(384): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
-c:\users\pol\documents\github\physics_pinball\modulesceneintro.cpp(387): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
-c:\users\pol\documents\github\physics_pinball\modulesceneintro.cpp(395): warning C4101: 'y': variable local sin referencia
-c:\users\pol\documents\github\physics_pinball\modulesceneintro.cpp(395): warning C4101: 'x': variable local sin referencia
+﻿  Application.cpp
 c:\program files (x86)\microsoft visual studio 14.0\vc\include\limits(210): warning C4577: si se usa 'noexcept' sin ningún modo de control de excepciones especificado, la finalización de la excepción no está garantizada. Especifique /EHsc
+  Generando código...
+  Compilando...
+  log.cpp
+  ModuleWindow.cpp
+  ModuleTextures.cpp
+  ModuleSceneIntro.cpp
+c:\users\pol\documents\github\physics_pinball\modulesceneintro.cpp(271): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\pol\documents\github\physics_pinball\modulesceneintro.cpp(291): warning C4305: 'argumento': truncamiento de 'float' a 'bool'
+c:\users\pol\documents\github\physics_pinball\modulesceneintro.cpp(392): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+c:\users\pol\documents\github\physics_pinball\modulesceneintro.cpp(394): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+c:\users\pol\documents\github\physics_pinball\modulesceneintro.cpp(396): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\pol\documents\github\physics_pinball\modulesceneintro.cpp(399): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\pol\documents\github\physics_pinball\modulesceneintro.cpp(407): warning C4101: 'y': variable local sin referencia
+c:\users\pol\documents\github\physics_pinball\modulesceneintro.cpp(407): warning C4101: 'x': variable local sin referencia
+c:\program files (x86)\microsoft visual studio 14.0\vc\include\limits(210): warning C4577: si se usa 'noexcept' sin ningún modo de control de excepciones especificado, la finalización de la excepción no está garantizada. Especifique /EHsc
+  ModuleRender.cpp
+  ModulePlayer.cpp
+c:\users\pol\documents\github\physics_pinball\moduleplayer.cpp(25): warning C4305: 'argumento': truncamiento de 'float' a 'bool'
+c:\program files (x86)\microsoft visual studio 14.0\vc\include\limits(210): warning C4577: si se usa 'noexcept' sin ningún modo de control de excepciones especificado, la finalización de la excepción no está garantizada. Especifique /EHsc
+  ModulePhysics.cpp
+c:\users\pol\documents\github\physics_pinball\modulephysics.cpp(126): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\pol\documents\github\physics_pinball\modulephysics.cpp(127): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\pol\documents\github\physics_pinball\modulephysics.cpp(174): warning C4018: '<': no coinciden signed/unsigned
+c:\users\pol\documents\github\physics_pinball\modulephysics.cpp(308): warning C4244: '=': conversión de 'int' a 'float32'; posible pérdida de datos
+c:\users\pol\documents\github\physics_pinball\modulephysics.cpp(309): warning C4244: '=': conversión de 'int' a 'float32'; posible pérdida de datos
+c:\users\pol\documents\github\physics_pinball\modulephysics.cpp(310): warning C4244: '=': conversión de 'int' a 'float32'; posible pérdida de datos
+c:\users\pol\documents\github\physics_pinball\modulephysics.cpp(311): warning C4244: '=': conversión de 'int' a 'float32'; posible pérdida de datos
+c:\users\pol\documents\github\physics_pinball\modulephysics.cpp(312): warning C4244: 'argumento': conversión de 'float32' a 'int'; posible pérdida de datos
+c:\users\pol\documents\github\physics_pinball\modulephysics.cpp(386): warning C4244: 'inicializando': conversión de 'int' a 'float'; posible pérdida de datos
+c:\users\pol\documents\github\physics_pinball\modulephysics.cpp(387): warning C4244: 'inicializando': conversión de 'int' a 'float'; posible pérdida de datos
+c:\users\pol\documents\github\physics_pinball\modulephysics.cpp(393): warning C4244: 'return': conversión de 'float32' a 'int'; posible pérdida de datos
+c:\program files (x86)\microsoft visual studio 14.0\vc\include\cmath(131): warning C4577: si se usa 'noexcept' sin ningún modo de control de excepciones especificado, la finalización de la excepción no está garantizada. Especifique /EHsc
+  ModuleInput.cpp
+  ModuleAudio.cpp
+  Main.cpp
+  Generando código...
   SDL Game.vcxproj -> C:\Users\Pol\Documents\GitHub\Physics_Pinball\Debug\2D Physics - class 4.exe
   SDL Game.vcxproj -> C:\Users\Pol\Documents\GitHub\Physics_Pinball\Debug\2D Physics - class 4.pdb (Full PDB)

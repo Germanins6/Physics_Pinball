@@ -75,12 +75,17 @@ update_status ModulePhysics::PreUpdate()
 	return UPDATE_CONTINUE;
 }
 
-PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius)
+PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius, bool Body,bool bullet)
 {
 	b2BodyDef body;
-	body.type = b2_dynamicBody;
-	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
+	if (Body== true)
+		body.type = b2_dynamicBody;
+	else if (Body == false)
+		body.type = b2_staticBody;
 
+	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
+	if (bullet == true)
+		body.bullet = true;
 	b2Body* b = world->CreateBody(&body);
 
 	b2CircleShape shape;

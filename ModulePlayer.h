@@ -2,6 +2,7 @@
 #include "Module.h"
 #include "Globals.h"
 #include "p2Point.h"
+#include "ModulePhysics.h"
 
 class ModulePlayer : public Module
 {
@@ -13,6 +14,12 @@ public:
 	update_status Update();
 	bool CleanUp();
 
+	void Restart(bool reset = false);
+
 public:
+	PhysBody* ball;
+	SDL_Texture* textball;
+	bool thrower;
+	float vely;
 
 };

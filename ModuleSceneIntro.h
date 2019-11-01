@@ -3,7 +3,7 @@
 #include "p2List.h"
 #include "p2Point.h"
 #include "Globals.h"
-
+#include "ModulePlayer.h"
 class PhysBody;
 
 class ModuleSceneIntro : public Module
@@ -31,8 +31,13 @@ public:
 	uint bonus_fx;
 	p2Point<int> ray;
 	bool ray_on;
+	bool ballthrow;
 private:
 	SDL_Texture* background;
+	
+	PhysBody* thrower;
+	PhysBody* thrower_sta;
+	SDL_Texture* textthrower;
 	
 
 
