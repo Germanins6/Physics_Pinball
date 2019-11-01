@@ -1,4 +1,3 @@
-#pragma once
 #include "Module.h"
 #include "Globals.h"
 #include "p2Point.h"
@@ -13,6 +12,8 @@ public:
 	update_status Update();
 	bool CleanUp();
 
-public:
-
+private:
+	int fontpoints = -1;
+	int puntos = 0;
+	char points_text[10];
 };
