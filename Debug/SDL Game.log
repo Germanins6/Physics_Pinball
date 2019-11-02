@@ -1,5 +1,2 @@
-﻿  ModuleSceneIntro.cpp
-\\Mac\Home\Documents\GitHub\Physics_Pinball\ModuleSceneIntro.cpp(283,63): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
-\\Mac\Home\Documents\GitHub\Physics_Pinball\ModuleSceneIntro.cpp(340,9): warning C4101: 'y': variable local sin referencia
-\\Mac\Home\Documents\GitHub\Physics_Pinball\ModuleSceneIntro.cpp(340,6): warning C4101: 'x': variable local sin referencia
+﻿  ModulePlayer.cpp
   SDL Game.vcxproj -> \\Mac\Home\Documents\GitHub\Physics_Pinball\Debug\2D Physics - class 4.exe

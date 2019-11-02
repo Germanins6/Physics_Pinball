@@ -21,10 +21,13 @@ public:
 	SDL_Texture* textball;
 	bool thrower;
 	float vely;
+	int lifes = 3;
+
 
 private:
 	int fontpoints = -1;
 	int puntos = 0;
 	char points_text[10];
+
 
 };

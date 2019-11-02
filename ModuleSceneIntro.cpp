@@ -7,6 +7,8 @@
 #include "ModuleAudio.h"
 #include "ModulePhysics.h"
 #include "ModulePlayer.h"
+#include "Animation.h"
+
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	circle = NULL;
@@ -22,21 +24,121 @@ ModuleSceneIntro::~ModuleSceneIntro()
 // Load assets
 bool ModuleSceneIntro::Start()
 {
-	LOG("Loading Intro assets");
-	bool ret = true;
 
-	App->renderer->camera.x = App->renderer->camera.y = 0;
-
-	left_t = App->textures->Load("sprites/pala_izq.png");
-	right_t = App->textures->Load("sprites/pala_der.png");
 	
-	//Background
-	background = App->textures->Load("sprites/background.png");
+	//Loading all asset textures
+	LoadTextures();
+
 
 	//Thrower
 	thrower = App->physics->CreateRectangle(555, 951, 35, 100);
-	textthrower = App->textures->Load("sprites/thrower.png");
 	sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH / 2, SCREEN_HEIGHT, SCREEN_WIDTH, 50);
+
+	//Draw all vectors owned by the background
+	SetBackgroundColliders();
+	
+	//Set R/L Paddles in Scene
+	SetPaddles();
+	
+		
+		
+
+	return true;
+}
+
+// Load assets
+bool ModuleSceneIntro::CleanUp()
+{
+	LOG("Unloading Intro scene");
+	App->textures->Unload(lifes);
+	App->textures->Unload(background);
+	App->textures->Unload(textthrower);
+	return true;
+}
+
+// Update: draw background
+update_status ModuleSceneIntro::Update()
+{
+	App->renderer->Blit(background, 0, 0, NULL);
+
+	//ball
+	if (App->player->ball != nullptr)
+	{
+		int x, y;
+		App->player->ball->GetPosition(x, y);
+		App->renderer->Blit(App->player->textball, x, y);
+	}
+	//thrower
+	if (App->player->thrower == true)
+	{
+		int x, y;
+		App->scene_intro->thrower->GetPosition(x, y);
+		App->renderer->Blit(App->scene_intro->textthrower, x, y + 2 - (int)App->player->vely * 1.5f);
+	}
+	else
+	{
+		int x, y;
+		thrower->GetPosition(x, y);
+		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_IDLE)
+			App->renderer->Blit(textthrower, x, y + 2);
+	}
+
+
+	if(App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	{
+		ray_on = !ray_on;
+		ray.x = App->input->GetMouseX();
+		ray.y = App->input->GetMouseY();
+	}
+
+	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+	{
+		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 14));
+		App->renderer->Blit(circle, App->input->GetMouseX(), App->input->GetMouseY());
+		//circles.getLast()->data->listener = this;
+	}
+
+	PaddleInputs();
+	DrawLifes();
+
+	LOG("X: %d and Y%d", App->input->GetMouseX(), App->input->GetMouseY());
+
+
+
+	// Prepare for raycast ------------------------------------------------------
+	
+	iPoint mouse;
+	mouse.x = App->input->GetMouseX();
+	mouse.y = App->input->GetMouseY();
+	int ray_hit = ray.DistanceTo(mouse);
+
+	fVector normal(0.0f, 0.0f);
+
+	// All draw functions ------------------------------------------------------
+	p2List_item<PhysBody*>* c = circles.getFirst();
+
+
+
+
+
+
+
+	return UPDATE_CONTINUE;
+}
+
+void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
+{
+	int x, y;
+
+	if (bodyB == thrower)
+		ballthrow = true;
+	else
+		ballthrow = false;
+
+}
+
+//Must be called in start
+void ModuleSceneIntro::SetBackgroundColliders() {
 
 	//Monkey planks
 	int monkey_planks[54] = {
@@ -68,6 +170,7 @@ bool ModuleSceneIntro::Start()
 	137, 708,
 	142, 706
 	};
+
 	App->physics->CreateChain(0, 0, monkey_planks, 54, false);
 	//Panda planks
 	int panda_planks[54] = {
@@ -226,134 +329,141 @@ bool ModuleSceneIntro::Start()
 	App->physics->CreateChain(147, 0, fs_stick, 14, false);
 	App->physics->CreateChain(198, 0, fs_stick, 14, false);
 
+}
 
+void ModuleSceneIntro::SetPaddles() {
+	
+	//Right Paddle
 
-	////RIGHT
-
-	right = App->physics->CreateRectangle(149, 376, 26, 7);
-
-
-
-	point_right = App->physics->CreateCircle(149, 376, 2);
+	right = App->physics->CreateRectangle(300, 920, 94, 14);
+	point_right = App->physics->CreateCircle(392, 920, 8);
 	point_right->body->SetType(b2_staticBody);
 
-
+	
 	revoluteJointDef_right.bodyA = right->body;
 	revoluteJointDef_right.bodyB = point_right->body;
 	revoluteJointDef_right.referenceAngle = 0 * DEGTORAD;
 	revoluteJointDef_right.enableLimit = true;
 	revoluteJointDef_right.lowerAngle = -30 * DEGTORAD;
 	revoluteJointDef_right.upperAngle = 30 * DEGTORAD;
-	revoluteJointDef_right.localAnchorA.Set(PIXEL_TO_METERS(13), 0);
+	revoluteJointDef_right.localAnchorA.Set(PIXEL_TO_METERS(47), 0);
 	revoluteJointDef_right.localAnchorB.Set(0, 0);
 	b2RevoluteJoint* joint_right = (b2RevoluteJoint*)App->physics->world->CreateJoint(&revoluteJointDef_right);
-		
-		
 
+	//Left Paddle
 
-	return ret;
+	left = App->physics->CreateRectangle(184, 920, 94, 14);
+	point_left = App->physics->CreateCircle(184,920, 8);
+	point_left->body->SetType(b2_staticBody);
+
+	revoluteJointDef_left.bodyA = left->body;
+	revoluteJointDef_left.bodyB = point_left->body;
+	revoluteJointDef_left.referenceAngle = 0 * DEGTORAD;
+	revoluteJointDef_left.enableLimit = true;
+	revoluteJointDef_left.lowerAngle = -30 * DEGTORAD;
+	revoluteJointDef_left.upperAngle = 30 * DEGTORAD;
+	revoluteJointDef_left.localAnchorA.Set(PIXEL_TO_METERS(-47), 0);
+	revoluteJointDef_left.localAnchorB.Set(0, 0);
+	b2RevoluteJoint* joint_left = (b2RevoluteJoint*)App->physics->world->CreateJoint(&revoluteJointDef_left);
+
 }
 
-// Load assets
-bool ModuleSceneIntro::CleanUp()
-{
-	LOG("Unloading Intro scene");
-	App->textures->Unload(background);
-	App->textures->Unload(textthrower);
-	return true;
-}
-
-// Update: draw background
-update_status ModuleSceneIntro::Update()
-{
-	App->renderer->Blit(background, 0, 0, NULL);
-
-	//ball
-	if (App->player->ball != nullptr)
-	{
-		int x, y;
-		App->player->ball->GetPosition(x, y);
-		App->renderer->Blit(App->player->textball, x, y);
-	}
-	//thrower
-	if (App->player->thrower == true)
-	{
-		int x, y;
-		App->scene_intro->thrower->GetPosition(x, y);
-		App->renderer->Blit(App->scene_intro->textthrower, x, y + 2 - (int)App->player->vely * 1.5f);
-	}
-	else
-	{
-		int x, y;
-		thrower->GetPosition(x, y);
-		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_IDLE)
-			App->renderer->Blit(textthrower, x, y + 2);
-	}
-
-
-	if(App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-	{
-		ray_on = !ray_on;
-		ray.x = App->input->GetMouseX();
-		ray.y = App->input->GetMouseY();
-	}
-
-	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
-	{
-		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 14));
-		App->renderer->Blit(circle, App->input->GetMouseX(), App->input->GetMouseY());
-		//circles.getLast()->data->listener = this;
-	}
-
-
-	//RIGHT TRIGGER
+void ModuleSceneIntro::PaddleInputs() {
+	
+	//Right Paddle
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
 		b2Vec2 force = b2Vec2(0, -200);
 		right->body->ApplyForceToCenter(force, 1);
 		revoluteJointDef_right.lowerAngle = 30 * DEGTORAD;
 	}
 
-
-	// Prepare for raycast ------------------------------------------------------
-	
-	iPoint mouse;
-	mouse.x = App->input->GetMouseX();
-	mouse.y = App->input->GetMouseY();
-	int ray_hit = ray.DistanceTo(mouse);
-
-	fVector normal(0.0f, 0.0f);
-
-	// All draw functions ------------------------------------------------------
-	p2List_item<PhysBody*>* c = circles.getFirst();
-
-
-
-
-
-
-
-	return UPDATE_CONTINUE;
-}
-
-void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
-{
-	int x, y;
-
-	if (bodyB == thrower)
-		ballthrow = true;
-	else
-		ballthrow = false;
-
-	/*
-	if(bodyA)
+	if (right != NULL)
 	{
-		bodyA->GetPosition(x, y);
-		App->renderer->DrawCircle(x, y, 50, 100, 100, 100);
+		int x, y;
+		right->GetPosition(x, y);
+		App->renderer->Blit(paddlestex, x, y, &paddle_right, 1.0f, right->GetRotation()+5);
 	}
 
-	if(bodyB)
+	//Left Paddle
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
+		b2Vec2 force = b2Vec2(0, -200);
+		left->body->ApplyForceToCenter(force, 1);
+		revoluteJointDef_left.lowerAngle = 30 * DEGTORAD;
+	}
+
+	if (left != NULL)
 	{
-		bodyB->GetPosition(x, y);
-		App->renderer->DrawCircle(x, y, 50, 100, 100, 100);
-	}*/
+		int x, y;
+		left->GetPosition(x, y);
+		App->renderer->Blit(paddlestex, x, y, &paddle_left, 1.0f, left->GetRotation()-5);
+	}
+}
+
+void ModuleSceneIntro::DrawLifes() {
+
+	//Blit Score
+	App->renderer->Blit(lifes, 10, 10, &score);
+
+	//Blit Lifes
+	if (App->player->lifes == 3) App->renderer->Blit(lifes, 10,74, &all_lifes);
+	if (App->player->lifes == 2) App->renderer->Blit(lifes, 10, 74, &twolifes);
+	if (App->player->lifes == 1) App->renderer->Blit(lifes, 10, 74, &onelife);
+	if (App->player->lifes <= 0) App->renderer->Blit(lifes, 10, 74, &nolife);
+
+}
+
+//SHOULD BE CALLED ONLY IN START
+void ModuleSceneIntro::LoadTextures() {
+
+	LOG("Loading Intro assets");
+
+	//Loading paddles tex
+	paddlestex = App->textures->Load("sprites/paddles.png");
+	{
+		paddle_left.x = 7;
+		paddle_left.y = 58;
+		paddle_left.w = 100;
+		paddle_left.h = 34;
+
+		paddle_right.x = 7;
+		paddle_right.y = 12;
+		paddle_right.w = 100;
+		paddle_right.h = 34;
+	}
+
+	//Background
+	background = App->textures->Load("sprites/background.png");
+
+	//Thrower
+	textthrower = App->textures->Load("sprites/thrower.png");
+
+	//Lifes and Score
+	lifes = App->textures->Load("sprites/lives.png");
+	{
+		nolife.x = 184;
+		nolife.y = 137;
+		nolife.w = 125;
+		nolife.h = 50;
+
+		onelife.x = 184;
+		onelife.y = 88;
+		onelife.w = 125;
+		onelife.h = 50;
+
+		twolifes.x = 21;
+		twolifes.y = 137;
+		twolifes.w = 125;
+		twolifes.h = 50;
+
+		all_lifes.x = 21;
+		all_lifes.y = 88;
+		all_lifes.w = 125;
+		all_lifes.h = 50;
+
+		score.x = 8;
+		score.y = 8;
+		score.w = 326;
+		score.h = 68;
+	}
+
 }
