@@ -15,6 +15,7 @@ public:
 	bool CleanUp();
 
 	void Restart(bool reset = false);
+	void BlitPoints();
 
 public:
 	PhysBody* ball;

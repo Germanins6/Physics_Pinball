@@ -42,13 +42,8 @@ bool ModulePlayer::CleanUp()
 update_status ModulePlayer::Update()
 {
 
-	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_UP) {
-		puntos += 212;
-		lifes -= 1;
-	}
 
-	sprintf_s(points_text, 10, "%7d", puntos);
-	App->fonts->BlitText(200, 30, fontpoints, points_text);
+	BlitPoints();
 
 	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
 	{
@@ -70,5 +65,7 @@ update_status ModulePlayer::Update()
 	return UPDATE_CONTINUE;
 }
 
-
-
+void ModulePlayer::BlitPoints() {
+	sprintf_s(points_text, 10, "%7d", puntos);
+	App->fonts->BlitText(200, 30, fontpoints, points_text);
+}

@@ -434,4 +434,8 @@ void ModulePhysics::BeginContact(b2Contact* contact)
 		App->scene_intro->Sens_GreenFour = true;
 	}
 
+	/*Lost Ball Sensor*/
+	if (physA == App->scene_intro->LostBallSensor) {
+		App->player->lifes -= 1;
+	}
 }

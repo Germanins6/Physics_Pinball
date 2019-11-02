@@ -95,7 +95,6 @@ update_status ModuleSceneIntro::Update()
 	{
 		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 14));
 		App->renderer->Blit(circle, App->input->GetMouseX(), App->input->GetMouseY());
-		//circles.getLast()->data->listener = this;
 	}
 
 	PaddleInputs();
@@ -496,4 +495,6 @@ void ModuleSceneIntro::Sensors() {
 	GreenSensorThree = App->physics->CreateSensor(310, 260, 17, 42);
 	GreenSensorFour = App->physics->CreateSensor(362, 260, 17, 42);
 
+	/*Lose Sensor*/
+	LostBallSensor = App->physics->CreateSensor(284, 1025, 110 , 20);
 }

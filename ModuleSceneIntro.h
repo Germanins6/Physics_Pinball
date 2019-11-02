@@ -32,7 +32,6 @@ public:
 	p2List<PhysBody*> boxes;
 	p2List<PhysBody*> ricks;
 	
-	PhysBody* sensor;
 	bool sensed;
 
 	SDL_Texture* circle;
@@ -94,5 +93,7 @@ public:
 	bool Sens_GreenThree = false;
 	bool Sens_GreenFour = false;
 
+	/*Lost ball Sensor*/
+	PhysBody* LostBallSensor;
 
 };
