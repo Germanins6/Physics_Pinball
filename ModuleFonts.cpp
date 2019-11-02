@@ -1,6 +1,6 @@
 #include "ModuleFonts.h"
 
-ModuleFonts::ModuleFonts(Application* app, bool start_enabled) : Module(app, start_enabled){
+ModuleFonts::ModuleFonts(Application* app, bool start_enabled) : Module(app, start_enabled) {
 }
 
 ModuleFonts::~ModuleFonts() {
@@ -47,7 +47,7 @@ bool ModuleFonts::Load(const char* path, const char* characters, uint rows) {
 	uint width, height;
 	App->textures->GetSize(tex, width, height);
 	fonts[id].row_chars = strlen(characters) / fonts[id].rows;
-	fonts[id].char_w = width / fonts[id].row_chars; 
+	fonts[id].char_w = width / fonts[id].row_chars;
 	fonts[id].char_h = height / rows;
 
 	LOG("Successfully loaded BMP font from %s", path);
@@ -71,7 +71,6 @@ void ModuleFonts::BlitText(int x, int y, int font_id, const char* text) const
 {
 	if (text == nullptr || font_id < 0 || font_id >= MAX_FONTS || fonts[font_id].graphic == nullptr)
 	{
-		//LOG("Unable to render text with bmp font id %d", font_id);
 		return;
 	}
 
