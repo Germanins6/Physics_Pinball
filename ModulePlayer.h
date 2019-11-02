@@ -22,11 +22,8 @@ public:
 	bool thrower;
 	float vely;
 	int lifes = 3;
-
-
-private:
-	int fontpoints = -1;
 	int puntos = 0;
+	int fontpoints = -1;
 	char points_text[10];
 
 

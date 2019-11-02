@@ -7,12 +7,12 @@
 #include "ModuleAudio.h"
 #include "ModulePhysics.h"
 #include "ModulePlayer.h"
-#include "Animation.h"
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-	circle = NULL;
-	textthrower = background = NULL;
+	
+	//Setting Pointers to SDL_Tex in nullptr
+	circle = textthrower = background = lifes = paddlestex = dynElements = nullptr;
 	ray_on = false;
 	sensed = false;
 
@@ -29,30 +29,30 @@ bool ModuleSceneIntro::Start()
 	//Loading all asset textures
 	LoadTextures();
 
+	//Draw all vectors owned by the background
+	SetBackgroundColliders();
+	Sensors();
+	 
+	//Set R/L Paddles in Scene
+	SetPaddles();
+
 
 	//Thrower
 	thrower = App->physics->CreateRectangle(555, 951, 35, 100);
-	sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH / 2, SCREEN_HEIGHT, SCREEN_WIDTH, 50);
-
-	//Draw all vectors owned by the background
-	SetBackgroundColliders();
-	
-	//Set R/L Paddles in Scene
-	SetPaddles();
 	
 		
-		
-
 	return true;
 }
 
 // Load assets
 bool ModuleSceneIntro::CleanUp()
 {
-	LOG("Unloading Intro scene");
+	LOG("Unloading all assets");
+	App->textures->Unload(paddlestex);
 	App->textures->Unload(lifes);
 	App->textures->Unload(background);
 	App->textures->Unload(textthrower);
+	App->textures->Unload(dynElements);
 	return true;
 }
 
@@ -99,25 +99,10 @@ update_status ModuleSceneIntro::Update()
 	}
 
 	PaddleInputs();
+	CheckInteractions();
 	DrawLifes();
 
-	LOG("X: %d and Y%d", App->input->GetMouseX(), App->input->GetMouseY());
-
-
-
-	// Prepare for raycast ------------------------------------------------------
-	
-	iPoint mouse;
-	mouse.x = App->input->GetMouseX();
-	mouse.y = App->input->GetMouseY();
-	int ray_hit = ray.DistanceTo(mouse);
-
-	fVector normal(0.0f, 0.0f);
-
-	// All draw functions ------------------------------------------------------
-	p2List_item<PhysBody*>* c = circles.getFirst();
-
-
+	LOG("X: %d and Y: %d", App->input->GetMouseX(), App->input->GetMouseY());
 
 
 
@@ -329,6 +314,12 @@ void ModuleSceneIntro::SetBackgroundColliders() {
 	App->physics->CreateChain(147, 0, fs_stick, 14, false);
 	App->physics->CreateChain(198, 0, fs_stick, 14, false);
 
+
+	//Static Circles in middle
+	CircleOne = App->physics->CreateCircle(211, 415, 34, false);
+	CircleTwo = App->physics->CreateCircle(359, 415, 34, false);
+	CircleThree = App->physics->CreateCircle(286, 510, 34, false);
+
 }
 
 void ModuleSceneIntro::SetPaddles() {
@@ -412,7 +403,7 @@ void ModuleSceneIntro::DrawLifes() {
 
 }
 
-//SHOULD BE CALLED ONLY IN START
+//SHOULD BE CALLED ONLY IN START--->>>>> REMEMBER UNLOAD ALL THIS TEX!!!
 void ModuleSceneIntro::LoadTextures() {
 
 	LOG("Loading Intro assets");
@@ -438,7 +429,7 @@ void ModuleSceneIntro::LoadTextures() {
 	textthrower = App->textures->Load("sprites/thrower.png");
 
 	//Lifes and Score
-	lifes = App->textures->Load("sprites/lives.png");
+	lifes = App->textures->Load("sprites/lifes.png");
 	{
 		nolife.x = 184;
 		nolife.y = 137;
@@ -465,5 +456,44 @@ void ModuleSceneIntro::LoadTextures() {
 		score.w = 326;
 		score.h = 68;
 	}
+
+	dynElements = App->textures->Load("sprites/interactive_elements.png");
+	{
+		/*Green Sticks Top*/
+		GreenStick.x = 42;
+		GreenStick.y = 173;
+		GreenStick.w = 15;
+		GreenStick.h = 41;
+
+	}
+}
+
+void ModuleSceneIntro::CheckInteractions() {
+	/*Top Green Sensors*/
+	if (Sens_GreenOne) App->renderer->Blit(dynElements, 203, 239, &GreenStick);
+	if (Sens_GreenTwo) App->renderer->Blit(dynElements, 253, 239, &GreenStick);
+	if (Sens_GreenThree) App->renderer->Blit(dynElements, 300, 239, &GreenStick);
+	if (Sens_GreenFour) App->renderer->Blit(dynElements, 352, 239, &GreenStick);
+
+	//Checks if 4 sensors are true
+	if (Sens_GreenOne && Sens_GreenTwo && Sens_GreenThree && Sens_GreenFour) {
+		App->player->puntos += 5000;
+		Sens_GreenOne = Sens_GreenTwo = Sens_GreenThree = Sens_GreenFour = false;
+	}
+
+}
+
+void ModuleSceneIntro::Sensors() {
+
+	/*Middle Circles*/
+	SensCircleOne = App->physics->CreateSensor(211, 415,NULL,NULL, true, 40);
+	SensCircleTwo = App->physics->CreateSensor(359, 415, NULL, NULL, true, 40);
+	SensCircleThree = App->physics->CreateSensor(286, 510, NULL,NULL ,true, 40);
+
+	/*Top Green sensors*/
+	GreenSensorOne = App->physics->CreateSensor(213, 260, 17, 42);
+	GreenSensorTwo = App->physics->CreateSensor(263, 260, 17, 42);
+	GreenSensorThree = App->physics->CreateSensor(310, 260, 17, 42);
+	GreenSensorFour = App->physics->CreateSensor(362, 260, 17, 42);
 
 }

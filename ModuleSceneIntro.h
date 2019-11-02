@@ -24,6 +24,8 @@ public:
 	void PaddleInputs();
 	void DrawLifes();
 	void LoadTextures();
+	void CheckInteractions();
+	void Sensors();
 
 public:
 	p2List<PhysBody*> circles;
@@ -67,6 +69,30 @@ public:
 	SDL_Rect onelife;
 	SDL_Rect twolifes;
 	SDL_Rect all_lifes;
+
+	//INTERACTIVE ELEMENTS
+	SDL_Texture* dynElements;
+	SDL_Rect GreenStick;
+
+	/*Middle Circles*/
+	PhysBody* CircleOne;
+	PhysBody* CircleTwo;
+	PhysBody* CircleThree;
+
+	/*Middle Circle Sensors*/
+	PhysBody* SensCircleOne;
+	PhysBody* SensCircleTwo;
+	PhysBody* SensCircleThree;
+
+	/*Top Green Sensors*/
+	PhysBody* GreenSensorOne;
+	PhysBody* GreenSensorTwo;
+	PhysBody* GreenSensorThree;
+	PhysBody* GreenSensorFour;
+	bool Sens_GreenOne = false;
+	bool Sens_GreenTwo = false;
+	bool Sens_GreenThree = false;
+	bool Sens_GreenFour = false;
 
 
 };

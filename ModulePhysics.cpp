@@ -3,6 +3,8 @@
 #include "ModuleInput.h"
 #include "ModuleRender.h"
 #include "ModulePhysics.h"
+#include "ModuleSceneIntro.h"
+
 #include "p2Point.h"
 #include "math.h"
 
@@ -39,7 +41,6 @@ bool ModulePhysics::Start()
 	return true;
 }
 
-// 
 update_status ModulePhysics::PreUpdate()
 {
 	world->Step(1.0f / 60.0f, 6, 2);
@@ -58,10 +59,13 @@ update_status ModulePhysics::PreUpdate()
 	return UPDATE_CONTINUE;
 }
 
-PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius)
+PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius, bool dynamic)
 {
 	b2BodyDef body;
-	body.type = b2_dynamicBody;
+	if (dynamic == false)
+		body.type = b2_staticBody;
+	else if (dynamic == true)
+		body.type = b2_dynamicBody;
 	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
 
 	b2Body* b = world->CreateBody(&body);
@@ -107,7 +111,7 @@ PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height)
 	return pbody;
 }
 
-PhysBody* ModulePhysics::CreateRectangleSensor(int x, int y, int width, int height)
+PhysBody* ModulePhysics::CreateSensor(int x, int y, int width, int height, bool circle, int radius)
 {
 	b2BodyDef body;
 	body.type = b2_staticBody;
@@ -115,15 +119,28 @@ PhysBody* ModulePhysics::CreateRectangleSensor(int x, int y, int width, int heig
 
 	b2Body* b = world->CreateBody(&body);
 
-	b2PolygonShape box;
-	box.SetAsBox(PIXEL_TO_METERS(width) * 0.5f, PIXEL_TO_METERS(height) * 0.5f);
+	if (!circle) {
+		b2PolygonShape box;
+		box.SetAsBox(PIXEL_TO_METERS(width) * 0.5f, PIXEL_TO_METERS(height) * 0.5f);
+		b2FixtureDef fixture;
+		fixture.shape = &box;
+		fixture.density = 1.0f;
+		fixture.isSensor = true;
+		b->CreateFixture(&fixture);
 
-	b2FixtureDef fixture;
-	fixture.shape = &box;
-	fixture.density = 1.0f;
-	fixture.isSensor = true;
+	}
+	else if (circle) {
+		b2CircleShape shape;
+		shape.m_radius = PIXEL_TO_METERS(radius);
+		b2FixtureDef fixture;
+		fixture.shape = &shape;
+		fixture.density = 1.0f;
+		fixture.isSensor = true;
+		b->CreateFixture(&fixture);
 
-	b->CreateFixture(&fixture);
+	}
+
+	
 
 	PhysBody* pbody = new PhysBody();
 	pbody->body = b;
@@ -172,7 +189,6 @@ PhysBody* ModulePhysics::CreateChain(int x, int y, int* points, int size, bool d
 	return pbody;
 }
 
-// 
 update_status ModulePhysics::PostUpdate()
 {
 	if(App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
@@ -302,8 +318,6 @@ update_status ModulePhysics::PostUpdate()
 	return UPDATE_CONTINUE;
 }
 
-
-// Called before quitting
 bool ModulePhysics::CleanUp()
 {
 	LOG("Destroying physics world");
@@ -386,4 +400,38 @@ void ModulePhysics::BeginContact(b2Contact* contact)
 
 	if(physB && physB->listener != NULL)
 		physB->listener->OnCollision(physB, physA);
+
+
+	//Sensors
+
+	/*Middle Circle Sensors*/
+	if (physA == App->scene_intro->SensCircleOne) {
+		App->player->puntos += 10;
+	}
+
+	if (physA == App->scene_intro->SensCircleTwo) {
+		App->player->puntos += 10;
+	}
+
+	if (physA == App->scene_intro->SensCircleThree) {
+		App->player->puntos += 10;
+	}
+
+	/*fsSticks*/
+	if (physA == App->scene_intro->GreenSensorOne) {
+		App->scene_intro->Sens_GreenOne = true;
+	}
+
+	if (physA == App->scene_intro->GreenSensorTwo) {
+		App->scene_intro->Sens_GreenTwo = true;
+	}
+
+	if (physA == App->scene_intro->GreenSensorThree) {
+		App->scene_intro->Sens_GreenThree = true;
+	}
+
+	if (physA == App->scene_intro->GreenSensorFour) {
+		App->scene_intro->Sens_GreenFour = true;
+	}
+
 }
