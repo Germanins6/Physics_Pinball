@@ -44,7 +44,7 @@ update_status ModulePlayer::Update()
 	DrawBall();
 	App->scene_intro->PlayerInputs();
 	BlitPoints();
-	DebugCreateCircles();				//REMEMBER DELETE THIS FUNCTION OR SET IN DEBUG MODE NOW IN TEST
+	if(!App->physics->debug)DebugCreateCircles();				//REMEMBER DELETE THIS FUNCTION OR SET IN DEBUG MODE NOW IN TEST
 	if (reset) ResetBall();
 	ResetGame();
 
@@ -78,7 +78,6 @@ void ModulePlayer::ResetBall() {
 }
 
 void ModulePlayer::DebugCreateCircles() {
-
 	//Create test circles
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{

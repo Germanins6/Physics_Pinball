@@ -375,16 +375,16 @@ void ModuleSceneIntro::SetThrower() {
 
 void ModuleSceneIntro::SetReboters() {
 	//Reboter One
-	ReboterOne = App->physics->CreateRectangle(90,453,54,14,39,0.70f);
+	ReboterOne = App->physics->CreateRectangle(90,453,54,10,39,0.70f);
 	ReboterOne->body->SetType(b2_staticBody);
 	//Reboter Two
-	ReboterTwo = App->physics->CreateRectangle(483, 453, 54, 14, -39, 0.70f);
+	ReboterTwo = App->physics->CreateRectangle(483, 453, 54, 10, -39, 0.70f);
 	ReboterTwo->body->SetType(b2_staticBody);
 	//Reboter Three
-	ReboterThree = App->physics->CreateRectangle(189, 773, 89, 17, 62, 0.60f);
+	ReboterThree = App->physics->CreateRectangle(189, 773, 89, 13, 62, 0.60f);
 	ReboterThree->body->SetType(b2_staticBody);
 	//Reboter Four
-	ReboterFour = App->physics->CreateRectangle(397, 773, 89, 17, -62, 0.60f);
+	ReboterFour = App->physics->CreateRectangle(397, 773, 89, 13, -62, 0.60f);
 	ReboterFour->body->SetType(b2_staticBody);
 
 }
@@ -406,18 +406,7 @@ void ModuleSceneIntro::SetAnimals() {
 
 void ModuleSceneIntro::PlayerInputs() {
 	
-	//F2 Restart ball
-	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_REPEAT) {
-		App->player->ResetBall();
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN) {
-		counterCombo += 1;
-	}
-
-
-
-
+	
 	//Right Paddle
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
 		b2Vec2 force = b2Vec2(0, -350);
@@ -475,6 +464,11 @@ void ModuleSceneIntro::PlayerInputs() {
 		int x, y;
 		thrower->GetPosition(x, y);
 		App->renderer->Blit(textthrower, x-2, y, NULL, 1.0f);
+	}
+
+	//Debug F2 Restart ball in case of error
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_REPEAT) {
+		App->player->ResetBall();
 	}
 
 }
@@ -598,47 +592,47 @@ void ModuleSceneIntro::LoadTextures() {
 	CircleGlow.h = 68;
 
 	/*Bottom CircleCombo*/
-	CircleComboOne.x = 233;
-	CircleComboOne.y= 254;
-	CircleComboOne.w = 103;
-	CircleComboOne.h = 102;
+	{
+		CircleComboOne.x = 233;
+		CircleComboOne.y = 254;
+		CircleComboOne.w = 103;
+		CircleComboOne.h = 102;
 
-	CircleComboTwo.x = 440;
-	CircleComboTwo.y = 254;
-	CircleComboTwo.w = 103;
-	CircleComboTwo.h = 102;
+		CircleComboTwo.x = 440;
+		CircleComboTwo.y = 254;
+		CircleComboTwo.w = 103;
+		CircleComboTwo.h = 102;
 
-	CircleComboThree.x = 129;
-	CircleComboThree.y = 356;
-	CircleComboThree.w = 103;
-	CircleComboThree.h = 102;
+		CircleComboThree.x = 129;
+		CircleComboThree.y = 356;
+		CircleComboThree.w = 103;
+		CircleComboThree.h = 102;
 
-	CircleComboFour.x = 336;
-	CircleComboFour.y = 356;
-	CircleComboFour.w = 103;
-	CircleComboFour.h = 102;
+		CircleComboFour.x = 336;
+		CircleComboFour.y = 356;
+		CircleComboFour.w = 103;
+		CircleComboFour.h = 102;
 
-	CircleComboFive.x = 25;
-	CircleComboFive.y = 459;
-	CircleComboFive.w = 103;
-	CircleComboFive.h = 102;
+		CircleComboFive.x = 25;
+		CircleComboFive.y = 459;
+		CircleComboFive.w = 103;
+		CircleComboFive.h = 102;
 
-	CircleComboSix.x = 233;
-	CircleComboSix.y = 459;
-	CircleComboSix.w = 103;
-	CircleComboSix.h = 102;
+		CircleComboSix.x = 233;
+		CircleComboSix.y = 459;
+		CircleComboSix.w = 103;
+		CircleComboSix.h = 102;
 
-	CircleComboSeven.x = 440;
-	CircleComboSeven.y = 459;
-	CircleComboSeven.w = 103;
-	CircleComboSeven.h = 102;
+		CircleComboSeven.x = 440;
+		CircleComboSeven.y = 459;
+		CircleComboSeven.w = 103;
+		CircleComboSeven.h = 102;
 
-	CircleComboEight.x = 129;
-	CircleComboEight.y = 561;
-	CircleComboEight.w = 103;
-	CircleComboEight.h = 102;
-
-
+		CircleComboEight.x = 129;
+		CircleComboEight.y = 561;
+		CircleComboEight.w = 103;
+		CircleComboEight.h = 102;
+	}
 }
 
 void ModuleSceneIntro::CheckInteractions() {
