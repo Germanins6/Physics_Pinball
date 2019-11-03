@@ -61,7 +61,7 @@ public:
 	b2PrismaticJointDef prismaticJoint_launcher;
 	SDL_Texture* textthrower;
 	int ThrowForce = 0;
-
+	uint throwersound;
 
 	//PADDLES
 	PhysBody* left;
@@ -73,6 +73,9 @@ public:
 	SDL_Texture* paddlestex;
 	SDL_Rect paddle_left;
 	SDL_Rect paddle_right;
+	uint PaddleSoundOne;
+	uint PaddleSoundTwo;
+	uint PaddleSoundThree;
 
 	//LIVES AND SCORE
 	SDL_Texture* lifes;
@@ -144,7 +147,6 @@ public:
 	PhysBody* Lion;
 	PhysBody* Tiger;
 	
-
 
 	/*Animals Sensors*/
 	PhysBody* SensHipo;

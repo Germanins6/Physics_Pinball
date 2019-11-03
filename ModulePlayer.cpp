@@ -25,7 +25,7 @@ bool ModulePlayer::Start()
 	textball = App->textures->Load("sprites/ball2.png");
 	fontpoints = App->fonts->Load("sprites/preloaderfont.png", "1234567890%", 1);
 	ball = App->physics->CreateCircle(570, 913, 14);
-
+	
 	return true;
 }
 
@@ -54,6 +54,13 @@ update_status ModulePlayer::Update()
 void ModulePlayer::BlitPoints() {
 	sprintf_s(points_text, 10, "%7d", CurrentScore);
 	App->fonts->BlitText(200, 30, fontpoints, points_text);
+
+	sprintf_s(points_total, 10, "%7d", TotalScore);
+	App->fonts->BlitText(402, 22, fontpoints, points_total);
+
+	sprintf_s(points_max, 10, "%7d", MaxScore);
+	App->fonts->BlitText(402, 80, fontpoints, points_max);
+
 }
 
 void ModulePlayer::DrawBall() {

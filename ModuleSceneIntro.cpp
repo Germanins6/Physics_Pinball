@@ -309,9 +309,9 @@ void ModuleSceneIntro::SetBackgroundColliders() {
 
 
 	//Static Circles in middle
-	CircleOne = App->physics->CreateCircle(211, 415, 34, false, 0.8f);
-	CircleTwo = App->physics->CreateCircle(359, 415, 34, false, 0.8f);
-	CircleThree = App->physics->CreateCircle(286, 510, 34, false, 0.8f);
+	CircleOne = App->physics->CreateCircle(211, 415, 34, false, 0.5f);
+	CircleTwo = App->physics->CreateCircle(359, 415, 34, false, 0.5f);
+	CircleThree = App->physics->CreateCircle(286, 510, 34, false, 0.5f);
 
 }
 
@@ -420,6 +420,12 @@ void ModuleSceneIntro::PlayerInputs() {
 		right->body->ApplyForceToCenter(force, 1);
 		revoluteJointDef_right.lowerAngle = 30 * DEGTORAD;
 	}
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
+		if (App->player->lifes == 0)App->audio->PlayFx(PaddleSoundOne);
+		if (App->player->lifes == 3)App->audio->PlayFx(PaddleSoundTwo);
+		if (App->player->lifes == 2)App->audio->PlayFx(PaddleSoundThree);
+		if (App->player->lifes == 1)App->audio->PlayFx(PaddleSoundThree);
+	}
 
 	if (right != NULL)
 	{
@@ -433,6 +439,13 @@ void ModuleSceneIntro::PlayerInputs() {
 		b2Vec2 force = b2Vec2(0, -350);
 		left->body->ApplyForceToCenter(force, 1);
 		revoluteJointDef_left.lowerAngle = 30 * DEGTORAD;
+		
+	}
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
+		if (App->player->lifes == 0)App->audio->PlayFx(PaddleSoundThree);
+		if (App->player->lifes == 3)App->audio->PlayFx(PaddleSoundThree);
+		if (App->player->lifes == 2)App->audio->PlayFx(PaddleSoundTwo);
+		if (App->player->lifes == 1)App->audio->PlayFx(PaddleSoundOne);
 	}
 
 	if (left != NULL)
@@ -450,6 +463,7 @@ void ModuleSceneIntro::PlayerInputs() {
 	}
 	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_UP) {
 		thrower->body->ApplyForceToCenter(b2Vec2(0, -ThrowForce), 1);
+		App->audio->PlayFx(throwersound);
 	}
 
 	if (thrower != NULL)
@@ -686,7 +700,17 @@ void ModuleSceneIntro::Sensors() {
 	Arrow_Right = App->physics->CreateSensor(442, 433, 10, 10, false, 0 , 20);
 
 	/*Ball Sensors*/
-	L_StarOne = App->physics->CreateSensor(142, 241, NULL, NULL, true, 10);
+	L_StarOne = App->physics->CreateSensor(208, 695, NULL, NULL, true, 28);
+	R_StarOne = App->physics->CreateSensor(384, 695, NULL, NULL, true, 28);
+	L_StarTwo = App->physics->CreateSensor(230, 753, NULL, NULL, true, 23);
+	R_StarTwo = App->physics->CreateSensor(362, 753, NULL, NULL, true, 23);
+	L_StarThree = App->physics->CreateSensor(252, 803, NULL, NULL, true, 20);
+	R_StarThree = App->physics->CreateSensor(338, 803, NULL, NULL, true, 20);
+
+
+
+
+
 }
 
 void ModuleSceneIntro::LoadWavFiles() {
@@ -696,6 +720,13 @@ void ModuleSceneIntro::LoadWavFiles() {
 	bell = App->audio->LoadFx("audio/fx/Middle_Circle.wav");
 	combo = App->audio->LoadFx("audio/fx/Bigcombo.wav");
 	greensensor = App->audio->LoadFx("audio/fx/green_light.wav");
+
 	bigbumper= App->audio->LoadFx("audio/fx/blueBumper.wav");
 	smallbumper = App->audio->LoadFx("audio/fx/smallBumper.wav");
+
+	throwersound = App->audio->LoadFx("audio/fx/thrower.wav");
+	PaddleSoundOne = App->audio->LoadFx("audio/fx/paddle.wav");
+	PaddleSoundTwo = App->audio->LoadFx("audio/fx/paddle_variation.wav");
+	PaddleSoundThree = App->audio->LoadFx("audio/fx/paddle_variationtwo.wav");
+
 }
