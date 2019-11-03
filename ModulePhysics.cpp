@@ -440,6 +440,15 @@ void ModulePhysics::BeginContact(b2Contact* contact)
 	/*Lost Ball Sensor*/
 	if (physA == App->scene_intro->LostBallSensor) {
 		App->player->lifes -= 1;
-		App->player->ResetBall();
+		App->player->reset = true;
+	}
+
+	/*Arrow Sensors*/
+	if (physA == App->scene_intro->Arrow_Left) {
+		App->scene_intro->L_Arrow_enabled = true;
+	}
+
+	if (physA == App->scene_intro->Arrow_Right) {
+		App->scene_intro->R_Arrow_enabled = true;
 	}
 }

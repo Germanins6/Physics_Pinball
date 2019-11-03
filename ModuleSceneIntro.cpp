@@ -59,13 +59,10 @@ bool ModuleSceneIntro::CleanUp()
 update_status ModuleSceneIntro::Update()
 {
 	App->renderer->Blit(background, 0, 0, NULL);
+	App->renderer->Blit(dynElements, 142, 433, &DisableArrow, 1.0f, -20);
+	App->renderer->Blit(dynElements, 390, 433, &DisableArrow, 1.0f, 20);
 
-	//Create test circles
-	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
-	{
-		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 14));
-		App->renderer->Blit(circle, App->input->GetMouseX(), App->input->GetMouseY());
-	}
+	
 
 	CheckInteractions();
 	DrawLifes();
@@ -474,6 +471,25 @@ void ModuleSceneIntro::LoadTextures() {
 		GreenStick.h = 41;
 
 	}
+
+	//Arrows
+	DisableArrow.x = 25;
+	DisableArrow.y = 689;
+	DisableArrow.w = 55;
+	DisableArrow.h = 130;
+
+	{
+		Arrows.PushBack({ 25,689,55,130 });
+		Arrows.PushBack({ 83,689,55,130 });
+		Arrows.PushBack({ 142,689,55,130 });
+		Arrows.PushBack({ 199,689,55,130 });
+		Arrows.PushBack({ 296,689,55,130 });
+		Arrows.PushBack({ 354,689,55,130 });
+		Arrows.PushBack({ 413,689,55,130 });
+		Arrows.PushBack({ 481,689,55,130 });
+
+		Arrows.speed = 0.1f;
+	}
 }
 
 void ModuleSceneIntro::CheckInteractions() {
@@ -488,6 +504,11 @@ void ModuleSceneIntro::CheckInteractions() {
 		App->player->puntos += 5000;
 		Sens_GreenOne = Sens_GreenTwo = Sens_GreenThree = Sens_GreenFour = false;
 	}
+
+	if(L_Arrow_enabled) App->renderer->Blit(App->scene_intro->dynElements, 145, 433, &App->scene_intro->Arrows.GetCurrentFrame(), 1.0f, -20);
+	if(R_Arrow_enabled) App->renderer->Blit(App->scene_intro->dynElements, 390, 433, &App->scene_intro->Arrows.GetCurrentFrame(), 1.0f, 20);
+
+
 
 }
 
@@ -506,4 +527,8 @@ void ModuleSceneIntro::Sensors() {
 
 	/*Lose Sensor*/
 	LostBallSensor = App->physics->CreateSensor(284, 1025, 110 , 20);
+
+	/*Arrow Sensors*/
+	Arrow_Left = App->physics->CreateSensor(142, 433, 10, 10, false, 0 , -20);
+	Arrow_Right = App->physics->CreateSensor(442, 433, 10, 10, false, 0 , 20);
 }

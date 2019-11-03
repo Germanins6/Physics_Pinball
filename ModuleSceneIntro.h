@@ -111,4 +111,12 @@ public:
 	PhysBody* reboterFour;
 	SDL_Texture* textreboter;
 
+	/*Arrow Sensors and Animation*/
+	SDL_Rect DisableArrow;
+	Animation Arrows;
+	PhysBody* Arrow_Left;
+	PhysBody* Arrow_Right;
+	bool L_Arrow_enabled = false;
+	bool R_Arrow_enabled = false;
+
 };

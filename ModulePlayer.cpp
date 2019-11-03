@@ -7,6 +7,7 @@
 #include "ModuleRender.h"
 #include "ModuleAudio.h"
 #include "ModuleFonts.h"
+#include "ModulePhysics.h"
 
 ModulePlayer::ModulePlayer(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -43,6 +44,8 @@ update_status ModulePlayer::Update()
 	DrawBall();
 	App->scene_intro->PlayerInputs();
 	BlitPoints();
+	DebugCreateCircles();				//REMEMBER DELETE THIS FUNCTION OR SET IN DEBUG MODE NOW IN TEST
+	if (reset) ResetBall();
 
 	return UPDATE_CONTINUE;
 }
@@ -61,9 +64,18 @@ void ModulePlayer::DrawBall() {
 }
 
 void ModulePlayer::ResetBall() {
-
-	//KILLS GAME
 	 
-	//ball->body->SetTransform({ PIXEL_TO_METERS(570), PIXEL_TO_METERS(913) }, 0.0f);
-	//ball->body->SetLinearVelocity({ 0,0 });
+	ball->body->SetTransform({ PIXEL_TO_METERS(570), PIXEL_TO_METERS(913) }, 0.0f);
+	ball->body->SetLinearVelocity({ 0,0 });
+	reset = false;
+}
+
+void ModulePlayer::DebugCreateCircles() {
+
+	//Create test circles
+	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+	{
+		App->scene_intro->circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 14));
+		App->renderer->Blit(App->scene_intro->circle, App->input->GetMouseX(), App->input->GetMouseY());
+	}
 }

@@ -17,6 +17,7 @@ public:
 	void ResetBall();
 	void BlitPoints();
 	void DrawBall();
+	void DebugCreateCircles();
 
 public:
 	PhysBody* ball;
@@ -27,6 +28,7 @@ public:
 	int puntos = 0;
 	int fontpoints = -1;
 	char points_text[10];
+	bool reset = false;
 
 
 };
