@@ -31,7 +31,9 @@ public:
 	void CheckInteractions();
 	void Sensors();
 	void SetReboters();
+	void SetAnimals();
 	void LoadWavFiles();
+
 
 public:
 	p2List<PhysBody*> circles;
@@ -85,6 +87,9 @@ public:
 	SDL_Rect GreenStick;
 	SDL_Rect RebotersOT;
 	SDL_Rect RebotersTF;
+	SDL_Rect hipo;
+	SDL_Rect lion;
+	SDL_Rect tiger;
 
 	/*Middle Circles*/
 	SDL_Rect CircleGlow;
@@ -132,6 +137,18 @@ public:
 	bool Sens_ReboterTwo = false;
 	bool Sens_ReboterThree = false;
 	bool Sens_ReboterFour = false;
+
+	/*Animals*/
+	PhysBody* Hipo;
+	PhysBody* Lion;
+	PhysBody* Tiger;
+	
+
+
+	/*Animals Sensors*/
+	PhysBody* SensHipo;
+	PhysBody* SensLion;
+	PhysBody* SensTiger;
 
 	/*Arrow Sensors and Animation*/
 	SDL_Rect DisableArrow;
