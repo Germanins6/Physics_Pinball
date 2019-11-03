@@ -103,11 +103,12 @@ public:
 
 	/*Lost ball Sensor*/
 	PhysBody* LostBallSensor;
+	
 	/*Reboters*/
-	PhysBody* reboter1;
-	PhysBody* reboter2;
-	PhysBody* reboter3;
-	PhysBody* reboter4;
+	PhysBody* ReboterOne;
+	PhysBody* ReboterTwo;
+	PhysBody* ReboterThree;
+	PhysBody* reboterFour;
 	SDL_Texture* textreboter;
 
 };

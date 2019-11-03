@@ -86,7 +86,7 @@ PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius, bool dynamic)
 	return pbody;
 }
 
-PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height,int angle = 0)
+PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height,int angle )
 {
 	b2BodyDef body;
 	body.type = b2_dynamicBody;
@@ -111,7 +111,7 @@ PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height,int
 	return pbody;
 }
 
-PhysBody* ModulePhysics::CreateSensor(int x, int y, int width, int height, bool circle, int radius, int angle = 0)
+PhysBody* ModulePhysics::CreateSensor(int x, int y, int width, int height, bool circle, int radius, int angle )
 {
 	b2BodyDef body;
 	body.type = b2_staticBody;
