@@ -488,3 +488,33 @@ Debug/2D Physi.746CC4C3.tlog/2D Physics - class 4.lastbuildstate
 .vs/2D Physics/v16/ipch/AutoPCH/f8f6d46a10fd3aec/MODULEPLAYER.ipch
 .vs/2D Physics/v16/Browse.VC.db
 .vs/2D Physics/v16/.suo
+Debug/vc142.pdb
+Debug/vc142.idb
+Debug/SDL Game.log
+Debug/ModuleWindow.obj
+Debug/ModuleTextures.obj
+Debug/ModuleSceneIntro.obj
+Debug/ModuleRender.obj
+Debug/ModulePlayer.obj
+Debug/ModulePhysics.obj
+Debug/ModuleInput.obj
+Debug/ModuleFonts.obj
+Debug/ModuleAudio.obj
+Debug/Main.obj
+Debug/log.obj
+Debug/Application.obj
+Debug/2D Physics - class 4.pdb
+Debug/2D Physics - class 4.ilk
+Debug/2D Physics - class 4.exe
+Debug/2D Physi.746CC4C3.tlog/link.write.1.tlog
+Debug/2D Physi.746CC4C3.tlog/link.read.1.tlog
+Debug/2D Physi.746CC4C3.tlog/CL.write.1.tlog
+Debug/2D Physi.746CC4C3.tlog/CL.read.1.tlog
+Debug/2D Physi.746CC4C3.tlog/CL.command.1.tlog
+Debug/2D Physi.746CC4C3.tlog/2D Physics - class 4.lastbuildstate
+.vs/2D Physics/v16/ipch/AutoPCH/d95e2a42e613c8d9/MODULEINPUT.ipch
+.vs/2D Physics/v16/ipch/AutoPCH/79776d56836519cf/MODULESCENEINTRO.ipch
+.vs/2D Physics/v16/ipch/AutoPCH/540119442f15e16c/MODULEPLAYER.ipch
+.vs/2D Physics/v16/ipch/AutoPCH/277928eb9cfcc144/MODULEPHYSICS.ipch
+.vs/2D Physics/v16/Browse.VC.db
+.vs/2D Physics/v16/.suo

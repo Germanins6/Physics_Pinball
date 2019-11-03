@@ -12,7 +12,7 @@ ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Modul
 {
 	
 	//Setting Pointers to SDL_Tex in nullptr
-	circle = textthrower = background = lifes = paddlestex = dynElements = nullptr;
+	circle = textthrower = background = lifes = paddlestex = dynElements =  nullptr;
 	ray_on = false;
 	sensed = false;
 
@@ -39,7 +39,8 @@ bool ModuleSceneIntro::Start()
 	SetThrower();
 	//SetReboters
 	SetReboters();
-		
+	//SetAnimals
+	SetAnimals();
 	return true;
 }
 
@@ -52,6 +53,7 @@ bool ModuleSceneIntro::CleanUp()
 	App->textures->Unload(background);
 	App->textures->Unload(textthrower);
 	
+
 	App->textures->Unload(dynElements);
 	return true;
 }
@@ -85,9 +87,16 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 //Must be called in start
 void ModuleSceneIntro::DrawMap() {
+	
+	/*App->renderer->Blit(dynElements, 390, 433, &hipo, 1.0f);
+	App->renderer->Blit(dynElements, 390, 433, &tiger, 1.0f);*/
 	App->renderer->Blit(background, 0, 0, NULL);
+	App->renderer->Blit(dynElements, 236, 77, &lion, 1.0f);
+	App->renderer->Blit(dynElements, 18, 214, &hipo, 1.0f);
+	App->renderer->Blit(dynElements, 451, 215, &tiger, 1.0f);
 	App->renderer->Blit(dynElements, 142, 433, &DisableArrow, 1.0f, -20);
 	App->renderer->Blit(dynElements, 390, 433, &DisableArrow, 1.0f, 20);
+	
 }
 
 void ModuleSceneIntro::DrawLifes() {
@@ -376,6 +385,21 @@ void ModuleSceneIntro::SetReboters() {
 
 }
 
+void ModuleSceneIntro::SetAnimals() {
+	//Lion
+	Lion = App->physics->CreateRectangle(283, 121, 38, 57);
+	Lion->body->SetType(b2_staticBody);
+	//Tiger
+	Tiger = App->physics->CreateRectangle(55, 256, 38, 65, -28);
+	Tiger->body->SetType(b2_staticBody);
+	////Reboter Three
+	//Hipo = App->physics->CreateRectangle(189, 773, 89, 17, 62, 0.99f);
+	//Hipo->body->SetType(b2_staticBody);
+	
+
+}
+
+
 void ModuleSceneIntro::PlayerInputs() {
 	
 	//Right Paddle
@@ -499,6 +523,22 @@ void ModuleSceneIntro::LoadTextures() {
 		RebotersTF.y = 144;
 		RebotersTF.w = 87;
 		RebotersTF.h = 17;
+
+		//Lion
+		lion.x = 117;
+		lion.y = 23;
+		lion.w = 97;
+		lion.h = 90;
+		//Hipo
+		hipo.x = 14;
+		hipo.y = 19;
+		hipo.w = 85;
+		hipo.h = 96;
+		//Tiger
+		tiger.x = 238;
+		tiger.y = 22;
+		tiger.w = 96;
+		tiger.h = 96;
 
 	}
 
