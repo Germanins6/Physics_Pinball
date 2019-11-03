@@ -29,6 +29,7 @@ public:
 	void LoadTextures();
 	void CheckInteractions();
 	void Sensors();
+	void SetReboters();
 
 public:
 	p2List<PhysBody*> circles;
@@ -102,5 +103,11 @@ public:
 
 	/*Lost ball Sensor*/
 	PhysBody* LostBallSensor;
+	/*Reboters*/
+	PhysBody* reboter1;
+	PhysBody* reboter2;
+	PhysBody* reboter3;
+	PhysBody* reboter4;
+	SDL_Texture* textreboter;
 
 };
