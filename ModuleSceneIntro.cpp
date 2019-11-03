@@ -391,14 +391,14 @@ void ModuleSceneIntro::SetReboters() {
 
 void ModuleSceneIntro::SetAnimals() {
 	//Lion
-	Lion = App->physics->CreateRectangle(283, 121, 38, 57);
+	Lion = App->physics->CreateRectangle(283, 121, 33, 52);
 	Lion->body->SetType(b2_staticBody);
 	//Tiger
-	Tiger = App->physics->CreateRectangle(55, 256, 38, 65, -28);
+	Tiger = App->physics->CreateRectangle(55, 256, 33, 60, -28);
 	Tiger->body->SetType(b2_staticBody);
-	////Reboter Three
-	//Hipo = App->physics->CreateRectangle(189, 773, 89, 17, 62, 0.99f);
-	//Hipo->body->SetType(b2_staticBody);
+	//Hipo
+	Hipo = App->physics->CreateRectangle(494, 263, 33, 60, 28);
+	Hipo->body->SetType(b2_staticBody);
 	
 
 }
@@ -651,7 +651,11 @@ void ModuleSceneIntro::Sensors() {
 	SensReboterThree= App->physics->CreateSensor(189, 773, 100, 28,false,NULL, 62);
     SensReboterFour= App->physics->CreateSensor(397, 773,100, 28, false, NULL, -62);
 
-
+	/*Animals*/
+	SensTiger= App->physics->CreateSensor(494, 263, 38, 62,false,NULL, 28);
+	SensHipo = App->physics->CreateSensor(55, 256, 38, 62,false,NULL, -28);
+	SensLion= App->physics->CreateSensor(283, 121, 38, 57 ,false, NULL);
+	
 	/*Lose Sensor*/
 	LostBallSensor = App->physics->CreateSensor(284, 1025, 110 , 20);
 
