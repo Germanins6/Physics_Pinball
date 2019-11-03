@@ -406,8 +406,8 @@ void ModuleSceneIntro::SetAnimals() {
 
 void ModuleSceneIntro::PlayerInputs() {
 	
-	//F1 Restart ball
-	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_REPEAT) {
+	//F2 Restart ball
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_REPEAT) {
 		App->player->ResetBall();
 	}
 
