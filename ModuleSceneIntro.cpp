@@ -662,6 +662,9 @@ void ModuleSceneIntro::Sensors() {
 	/*Arrow Sensors*/
 	Arrow_Left = App->physics->CreateSensor(142, 433, 10, 10, false, 0 , -20);
 	Arrow_Right = App->physics->CreateSensor(442, 433, 10, 10, false, 0 , 20);
+
+	/*Ball Sensors*/
+	L_StarOne = App->physics->CreateSensor(142, 241, NULL, NULL, true, 10);
 }
 
 void ModuleSceneIntro::LoadWavFiles() {
