@@ -4,6 +4,7 @@
 #include "ModuleRender.h"
 #include "ModulePhysics.h"
 #include "ModuleSceneIntro.h"
+#include "ModuleAudio.h"
 
 #include "p2Point.h"
 #include "math.h"
@@ -416,18 +417,22 @@ void ModulePhysics::BeginContact(b2Contact* contact)
 
 	/*fsSticks*/
 	if (physA == App->scene_intro->GreenSensorOne) {
+		App->audio->PlayFx(App->scene_intro->greensensor);
 		App->scene_intro->Sens_GreenOne = true;
 	}
 
 	if (physA == App->scene_intro->GreenSensorTwo) {
+		App->audio->PlayFx(App->scene_intro->greensensor);
 		App->scene_intro->Sens_GreenTwo = true;
 	}
 
 	if (physA == App->scene_intro->GreenSensorThree) {
+		App->audio->PlayFx(App->scene_intro->greensensor);
 		App->scene_intro->Sens_GreenThree = true;
 	}
 
 	if (physA == App->scene_intro->GreenSensorFour) {
+		App->audio->PlayFx(App->scene_intro->greensensor);
 		App->scene_intro->Sens_GreenFour = true;
 	}
 	
@@ -457,6 +462,7 @@ void ModulePhysics::BeginContact(b2Contact* contact)
 
 		//Less balls
 		App->player->lifes -= 1;
+		App->audio->PlayFx(App->scene_intro->lostBall, 0);
 
 		//Reset Arrows
 		App->scene_intro->L_Arrow_enabled = false;

@@ -47,7 +47,7 @@ update_status ModulePlayer::Update()
 	DebugCreateCircles();				//REMEMBER DELETE THIS FUNCTION OR SET IN DEBUG MODE NOW IN TEST
 	if (reset) ResetBall();
 	ResetGame();
-	LOG("TOTALPOINTS: %i   MAXPOINTS; %i", TotalScore, MaxScore);
+
 	return UPDATE_CONTINUE;
 }
 
@@ -65,7 +65,6 @@ void ModulePlayer::DrawBall() {
 }
 
 void ModulePlayer::ResetBall() {
-	 
 	ball->body->SetTransform({ PIXEL_TO_METERS(570), PIXEL_TO_METERS(913) }, 0.0f);
 	ball->body->SetLinearVelocity({ 0,0 });
 	reset = false;

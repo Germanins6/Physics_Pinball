@@ -31,6 +31,7 @@ public:
 	void CheckInteractions();
 	void Sensors();
 	void SetReboters();
+	void LoadWavFiles();
 
 public:
 	p2List<PhysBody*> circles;
@@ -50,6 +51,7 @@ public:
 
 public:
 
+	uint combo;
 
 	//THROWER
 	PhysBody* thrower;
@@ -89,6 +91,7 @@ public:
 	PhysBody* CircleOne;
 	PhysBody* CircleTwo;
 	PhysBody* CircleThree;
+	uint bell;
 
 	/*Middle Circle Sensors*/
 	PhysBody* SensCircleOne;
@@ -107,9 +110,11 @@ public:
 	bool Sens_GreenTwo = false;
 	bool Sens_GreenThree = false;
 	bool Sens_GreenFour = false;
+	uint greensensor;
 
 	/*Lost ball Sensor*/
 	PhysBody* LostBallSensor;
+	uint lostBall;
 	
 	/*Reboters*/
 	PhysBody* ReboterOne;
