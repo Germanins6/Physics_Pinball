@@ -23,8 +23,7 @@ bool ModulePlayer::Start()
 	LOG("Loading player");
 	textball = App->textures->Load("sprites/ball2.png");
 	fontpoints = App->fonts->Load("sprites/preloaderfont.png", "1234567890%", 1);
-	ball = App->physics->CreateCircle(570,913,15);
-
+	ResetBall();
 
 	return true;
 }
@@ -41,26 +40,9 @@ bool ModulePlayer::CleanUp()
 // Update: draw background
 update_status ModulePlayer::Update()
 {
-
-
+	DrawBall();
+	App->scene_intro->PlayerInputs();
 	BlitPoints();
-
-	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-	{
-		vely += -0.5f;
-		thrower = true;
-
-	}
-	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_UP)
-	{
-		if (ball != nullptr && App->scene_intro->ballthrow == true)
-			ball->body->SetLinearVelocity(b2Vec2(0, vely));
-
-		
-		vely = 0;
-		thrower = false;
-	}
-
 
 	return UPDATE_CONTINUE;
 }
@@ -68,4 +50,16 @@ update_status ModulePlayer::Update()
 void ModulePlayer::BlitPoints() {
 	sprintf_s(points_text, 10, "%7d", puntos);
 	App->fonts->BlitText(200, 30, fontpoints, points_text);
+}
+
+void ModulePlayer::DrawBall() {
+	if (ball != NULL) {
+		int x, y;
+		ball->GetPosition(x, y);
+		App->renderer->Blit(textball, x, y, NULL);
+	}
+}
+
+void ModulePlayer::ResetBall() {
+	ball = App->physics->CreateCircle(570, 913, 15);
 }

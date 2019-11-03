@@ -14,8 +14,9 @@ public:
 	update_status Update();
 	bool CleanUp();
 
-	void Restart(bool reset = false);
+	void ResetBall();
 	void BlitPoints();
+	void DrawBall();
 
 public:
 	PhysBody* ball;

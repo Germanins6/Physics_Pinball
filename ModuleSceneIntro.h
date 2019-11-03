@@ -6,6 +6,8 @@
 #include "ModulePlayer.h"
 #include "Animation.h"
 
+#define MAX_FORCE 1200;
+
 class PhysBody;
 
 class ModuleSceneIntro : public Module
@@ -20,8 +22,9 @@ public:
 	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
 
 	void SetBackgroundColliders();
-	void SetPaddles();
-	void PaddleInputs();
+	void SetPaddles();	
+	void SetThrower();
+	void PlayerInputs();
 	void DrawLifes();
 	void LoadTextures();
 	void CheckInteractions();
@@ -40,15 +43,19 @@ public:
 	p2Point<int> ray;
 	bool ray_on;
 	bool ballthrow;
-private:
 	SDL_Texture* background;
-	
-	PhysBody* thrower;
-	PhysBody* thrower_sta;
-	SDL_Texture* textthrower;
 	
 
 public:
+
+
+	//THROWER
+	PhysBody* thrower;
+	PhysBody* staticThrower;
+	b2PrismaticJointDef prismaticJoint_launcher;
+	SDL_Texture* textthrower;
+	int ThrowForce = 0;
+
 
 	//PADDLES
 	PhysBody* left;

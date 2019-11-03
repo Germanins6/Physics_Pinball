@@ -407,14 +407,17 @@ void ModulePhysics::BeginContact(b2Contact* contact)
 	/*Middle Circle Sensors*/
 	if (physA == App->scene_intro->SensCircleOne) {
 		App->player->puntos += 10;
+		App->player->ball->body->SetLinearVelocity({ 20,0 });
 	}
 
 	if (physA == App->scene_intro->SensCircleTwo) {
 		App->player->puntos += 10;
+		App->player->ball->body->SetLinearVelocity({ 20,0 });
 	}
 
 	if (physA == App->scene_intro->SensCircleThree) {
 		App->player->puntos += 10;
+		App->player->ball->body->SetLinearVelocity({ 20,0 });
 	}
 
 	/*fsSticks*/
@@ -437,5 +440,6 @@ void ModulePhysics::BeginContact(b2Contact* contact)
 	/*Lost Ball Sensor*/
 	if (physA == App->scene_intro->LostBallSensor) {
 		App->player->lifes -= 1;
+		//App->player->ResetBall();
 	}
 }

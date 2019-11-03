@@ -36,9 +36,8 @@ bool ModuleSceneIntro::Start()
 	//Set R/L Paddles in Scene
 	SetPaddles();
 
-
-	//Thrower
-	thrower = App->physics->CreateRectangle(555, 951, 35, 100);
+	//Set Thrower in Scene
+	SetThrower();
 	
 		
 	return true;
@@ -61,43 +60,13 @@ update_status ModuleSceneIntro::Update()
 {
 	App->renderer->Blit(background, 0, 0, NULL);
 
-	//ball
-	if (App->player->ball != nullptr)
-	{
-		int x, y;
-		App->player->ball->GetPosition(x, y);
-		App->renderer->Blit(App->player->textball, x, y);
-	}
-	//thrower
-	if (App->player->thrower == true)
-	{
-		int x, y;
-		App->scene_intro->thrower->GetPosition(x, y);
-		App->renderer->Blit(App->scene_intro->textthrower, x, y + 2 - (int)App->player->vely * 1.5f);
-	}
-	else
-	{
-		int x, y;
-		thrower->GetPosition(x, y);
-		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_IDLE)
-			App->renderer->Blit(textthrower, x, y + 2);
-	}
-
-
-	if(App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-	{
-		ray_on = !ray_on;
-		ray.x = App->input->GetMouseX();
-		ray.y = App->input->GetMouseY();
-	}
-
+	//Create test circles
 	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
 		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 14));
 		App->renderer->Blit(circle, App->input->GetMouseX(), App->input->GetMouseY());
 	}
 
-	PaddleInputs();
 	CheckInteractions();
 	DrawLifes();
 
@@ -358,11 +327,32 @@ void ModuleSceneIntro::SetPaddles() {
 
 }
 
-void ModuleSceneIntro::PaddleInputs() {
+void ModuleSceneIntro::SetThrower() {
+
+	//Thrower
+	thrower = App->physics->CreateRectangle(572, 1009, 32, 40);
+	staticThrower = App->physics->CreateRectangle(572, 1009, 32, 40);
+
+	staticThrower->body->SetType(b2_staticBody);
+
+	prismaticJoint_launcher.bodyB = thrower->body;
+	prismaticJoint_launcher.bodyA = staticThrower->body;
+	prismaticJoint_launcher.collideConnected = false;
+	prismaticJoint_launcher.enableLimit = true;
+	prismaticJoint_launcher.lowerTranslation = PIXEL_TO_METERS(25);
+	prismaticJoint_launcher.upperTranslation = PIXEL_TO_METERS(60);
+	prismaticJoint_launcher.localAnchorA.Set(0, 0);
+	prismaticJoint_launcher.localAnchorB.Set(0, 0);
+	prismaticJoint_launcher.localAxisA.Set(0, -1);
+
+	b2PrismaticJoint* joint_launcher = (b2PrismaticJoint*)App->physics->world->CreateJoint(&prismaticJoint_launcher);
+}
+
+void ModuleSceneIntro::PlayerInputs() {
 	
 	//Right Paddle
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
-		b2Vec2 force = b2Vec2(0, -200);
+		b2Vec2 force = b2Vec2(0, -350);
 		right->body->ApplyForceToCenter(force, 1);
 		revoluteJointDef_right.lowerAngle = 30 * DEGTORAD;
 	}
@@ -376,7 +366,7 @@ void ModuleSceneIntro::PaddleInputs() {
 
 	//Left Paddle
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
-		b2Vec2 force = b2Vec2(0, -200);
+		b2Vec2 force = b2Vec2(0, -350);
 		left->body->ApplyForceToCenter(force, 1);
 		revoluteJointDef_left.lowerAngle = 30 * DEGTORAD;
 	}
@@ -387,6 +377,24 @@ void ModuleSceneIntro::PaddleInputs() {
 		left->GetPosition(x, y);
 		App->renderer->Blit(paddlestex, x, y, &paddle_left, 1.0f, left->GetRotation()-5);
 	}
+
+	//Thrower
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) {
+		ThrowForce += 50;
+		if (ThrowForce > 1200) ThrowForce = 1200;
+		LOG("Force will be %i", ThrowForce);
+	}
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_UP) {
+		thrower->body->ApplyForceToCenter(b2Vec2(0, -ThrowForce), 1);
+	}
+
+	if (thrower != NULL)
+	{
+		int x, y;
+		thrower->GetPosition(x, y);
+		App->renderer->Blit(textthrower, x-2, y, NULL, 1.0f);
+	}
+
 }
 
 void ModuleSceneIntro::DrawLifes() {
@@ -456,6 +464,7 @@ void ModuleSceneIntro::LoadTextures() {
 		score.h = 68;
 	}
 
+	//Interactive Elements
 	dynElements = App->textures->Load("sprites/interactive_elements.png");
 	{
 		/*Green Sticks Top*/
