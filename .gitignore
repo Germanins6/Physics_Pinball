@@ -385,3 +385,23 @@ Debug/2D Physi.746CC4C3.tlog/2D Physics - class 4.lastbuildstate
 .vs/2D Physics/v16/ipch/AutoPCH/277928eb9cfcc144/MODULEPHYSICS.ipch
 .vs/2D Physics/v16/ipch/AutoPCH/132c63cd9ffd2dbf/APPLICATION.ipch
 .vs/2D Physics/v16/.suo
+.vs/2D Physics/v16/.suo
+.vs/2D Physics/v16/Browse.VC.db
+.vs/2D Physics/v16/ipch/AutoPCH/277928eb9cfcc144/MODULEPHYSICS.ipch
+.vs/2D Physics/v16/ipch/AutoPCH/4dd474f43f83b4e5/MODULERENDER.ipch
+.vs/2D Physics/v16/ipch/AutoPCH/79776d56836519cf/MODULESCENEINTRO.ipch
+Debug/2D Physi.746CC4C3.tlog/CL.command.1.tlog
+Debug/2D Physi.746CC4C3.tlog/CL.read.1.tlog
+Debug/2D Physi.746CC4C3.tlog/CL.write.1.tlog
+Debug/2D Physi.746CC4C3.tlog/link.read.1.tlog
+Debug/2D Physi.746CC4C3.tlog/link.write.1.tlog
+Debug/2D Physics - class 4.exe
+Debug/2D Physics - class 4.ilk
+Debug/2D Physics - class 4.pdb
+Debug/Application.obj
+Debug/ModulePhysics.obj
+Debug/ModulePlayer.obj
+Debug/ModuleSceneIntro.obj
+Debug/SDL Game.log
+Debug/vc142.idb
+Debug/vc142.pdb

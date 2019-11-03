@@ -488,6 +488,16 @@ void ModuleSceneIntro::LoadTextures() {
 		GreenStick.w = 15;
 		GreenStick.h = 41;
 
+		//Reboters One and Two
+		RebotersOT.x = 161;
+		RebotersOT.y = 176;
+		RebotersOT.w = 54;
+		RebotersOT.h = 14;
+		//Reboters Three and Four
+		RebotersTF.x = 229;
+		RebotersTF.y = 144;
+		RebotersTF.w = 87;
+		RebotersTF.h = 17;
 
 	}
 
@@ -522,6 +532,26 @@ void ModuleSceneIntro::CheckInteractions() {
 	if (Sens_GreenThree) App->renderer->Blit(dynElements, 300, 239, &GreenStick);
 	if (Sens_GreenFour) App->renderer->Blit(dynElements, 352, 239, &GreenStick);
 
+	if (Sens_ReboterOne) {
+		App->renderer->Blit(dynElements, 68, 441, &RebotersOT, 0.01f, 39);
+		Sens_ReboterOne = false;
+		App->player->puntos += 10;
+	}
+	if (Sens_ReboterTwo) {
+		App->renderer->Blit(dynElements, 451, 441, &RebotersOT, 0.01f, -39);
+		App->player->puntos += 10;
+		Sens_ReboterTwo = false;
+	}
+	if (Sens_ReboterThree) {
+		App->renderer->Blit(dynElements, 158, 758, &RebotersTF, 0.4f, 70);
+		Sens_ReboterThree = false;
+		App->player->puntos += 10;
+	}
+	if (Sens_ReboterFour) {
+		App->renderer->Blit(dynElements, 343, 761, &RebotersTF, 0.4f, -70);
+		App->player->puntos += 10;
+		Sens_ReboterFour = false;
+	}
 	//Checks if 4 sensors are true
 	if (Sens_GreenOne && Sens_GreenTwo && Sens_GreenThree && Sens_GreenFour) {
 		App->player->puntos += 5000;

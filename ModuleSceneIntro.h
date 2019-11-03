@@ -80,7 +80,8 @@ public:
 	//INTERACTIVE ELEMENTS
 	SDL_Texture* dynElements;
 	SDL_Rect GreenStick;
-	
+	SDL_Rect RebotersOT;
+	SDL_Rect RebotersTF;
 
 	/*Middle Circles*/
 	PhysBody* CircleOne;
@@ -117,7 +118,10 @@ public:
 	PhysBody* SensReboterTwo;
 	PhysBody* SensReboterThree;
 	PhysBody* SensReboterFour;
-
+	bool Sens_ReboterOne = false;
+	bool Sens_ReboterTwo = false;
+	bool Sens_ReboterThree = false;
+	bool Sens_ReboterFour = false;
 
 	/*Arrow Sensors and Animation*/
 	SDL_Rect DisableArrow;

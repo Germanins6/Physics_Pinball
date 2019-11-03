@@ -444,20 +444,24 @@ void ModulePhysics::BeginContact(b2Contact* contact)
 	if (physA == App->scene_intro->SensReboterOne) {
 		
 		App->player->ball->body->SetLinearVelocity({ 15,3});
+		App->scene_intro->Sens_ReboterOne = TRUE;
 	}
 
 	if (physA == App->scene_intro->SensReboterTwo) {
 		
 		App->player->ball->body->SetLinearVelocity({ 15,3 });
+		App->scene_intro->Sens_ReboterTwo = TRUE;
 	}
 
 	if (physA == App->scene_intro->SensReboterThree) {
 		
 		App->player->ball->body->SetLinearVelocity({ 15,3 });
+		App->scene_intro->Sens_ReboterThree = TRUE;
 	}
 	if (physA == App->scene_intro->SensReboterFour) {
 		
 		App->player->ball->body->SetLinearVelocity({ 15,3 });
+		App->scene_intro->Sens_ReboterFour = TRUE;
 	}
 
 	/*Lost Ball Sensor*/

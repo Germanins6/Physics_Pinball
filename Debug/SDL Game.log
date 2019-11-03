@@ -1,1 +1,5 @@
-﻿  SDL Game.vcxproj -> C:\Users\Pol\Documents\GitHub\Physics_Pinball\Debug\2D Physics - class 4.exe
+﻿  ModuleSceneIntro.cpp
+C:\Users\Pol\Documents\GitHub\Physics_Pinball\ModuleSceneIntro.cpp(83,9): warning C4101: 'y': variable local sin referencia
+C:\Users\Pol\Documents\GitHub\Physics_Pinball\ModuleSceneIntro.cpp(83,6): warning C4101: 'x': variable local sin referencia
+C:\Users\Pol\Documents\GitHub\Physics_Pinball\ModuleSceneIntro.cpp(402,47): warning C4244: 'argumento': conversión de 'int' a 'float32'; posible pérdida de datos
+  SDL Game.vcxproj -> C:\Users\Pol\Documents\GitHub\Physics_Pinball\Debug\2D Physics - class 4.exe

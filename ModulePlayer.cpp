@@ -24,7 +24,7 @@ bool ModulePlayer::Start()
 	LOG("Loading player");
 	textball = App->textures->Load("sprites/ball2.png");
 	fontpoints = App->fonts->Load("sprites/preloaderfont.png", "1234567890%", 1);
-	ball = App->physics->CreateCircle(570, 913, 15);
+	ball = App->physics->CreateCircle(570, 913, 14);
 
 	return true;
 }
