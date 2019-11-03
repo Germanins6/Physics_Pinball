@@ -460,6 +460,10 @@ void ModulePhysics::BeginContact(b2Contact* contact)
 	/*Lost Ball Sensor*/
 	if (physA == App->scene_intro->LostBallSensor) {
 
+		//Update Score
+		App->player->TotalScore += App->player->CurrentScore;		//Stores total score in current game
+		App->player->CurrentScore = 0;								//Sets score 0 
+
 		//Less balls
 		App->player->lifes -= 1;
 		App->audio->PlayFx(App->scene_intro->lostBall, 0);

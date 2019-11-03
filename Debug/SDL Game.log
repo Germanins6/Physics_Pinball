@@ -1,4 +1,5 @@
-﻿  ModulePhysics.cpp
+﻿  ModuleAudio.cpp
+  ModulePhysics.cpp
 \\Mac\Home\Documents\GitHub\Physics_Pinball\ModulePhysics.cpp(110,23): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
 \\Mac\Home\Documents\GitHub\Physics_Pinball\ModulePhysics.cpp(111,25): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
 \\Mac\Home\Documents\GitHub\Physics_Pinball\ModulePhysics.cpp(172,20): warning C4018: '<': no coinciden signed/unsigned
@@ -12,6 +13,7 @@
 \\Mac\Home\Documents\GitHub\Physics_Pinball\ModulePhysics.cpp(302,28): warning C4244: 'argumento': conversión de 'float32' a 'int'; posible pérdida de datos
 \\Mac\Home\Documents\GitHub\Physics_Pinball\ModulePhysics.cpp(371,13): warning C4244: 'inicializando': conversión de 'int' a 'float'; posible pérdida de datos
 \\Mac\Home\Documents\GitHub\Physics_Pinball\ModulePhysics.cpp(372,13): warning C4244: 'inicializando': conversión de 'int' a 'float'; posible pérdida de datos
+  ModulePlayer.cpp
   ModuleSceneIntro.cpp
 \\Mac\Home\Documents\GitHub\Physics_Pinball\ModulePhysics.cpp(378,27): warning C4244: 'return': conversión de 'float32' a 'int'; posible pérdida de datos
 \\Mac\Home\Documents\GitHub\Physics_Pinball\ModuleSceneIntro.cpp(78,9): warning C4101: 'y': variable local sin referencia

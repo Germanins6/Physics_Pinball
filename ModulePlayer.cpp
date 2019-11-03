@@ -81,9 +81,9 @@ void ModulePlayer::DebugCreateCircles() {
 }
 
 void ModulePlayer::ResetGame() {
-	TotalScore += CurrentScore;
 	if (lifes <= 0) {
 		if (TotalScore > MaxScore) MaxScore = TotalScore;
+		TotalScore = 0;
 		CurrentScore = 0;
 		lifes = 3;
 		ResetBall();
