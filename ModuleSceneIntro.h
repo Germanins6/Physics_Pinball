@@ -126,7 +126,8 @@ public:
 	PhysBody* ReboterTwo;
 	PhysBody* ReboterThree;
 	PhysBody* ReboterFour;
-	
+	uint bigbumper;
+	uint smallbumper;
 
 	/*Reboters Sensors*/
 	PhysBody* SensReboterOne;
@@ -149,6 +150,9 @@ public:
 	PhysBody* SensHipo;
 	PhysBody* SensLion;
 	PhysBody* SensTiger;
+	bool Sens_Lion = false;
+	bool Sens_Hipo = false;
+	bool Sens_Tiger = false;
 	int counterCombo = 0;
 
 	/*Arrow Sensors and Animation*/

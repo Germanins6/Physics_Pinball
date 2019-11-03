@@ -440,22 +440,43 @@ void ModulePhysics::BeginContact(b2Contact* contact)
 	if (physA == App->scene_intro->SensReboterOne) {
 		App->player->ball->body->SetLinearVelocity({ 15,3});
 		App->scene_intro->Sens_ReboterOne = TRUE;
+		App->audio->PlayFx(App->scene_intro->smallbumper);
 	}
 
 	if (physA == App->scene_intro->SensReboterTwo) {
 		App->player->ball->body->SetLinearVelocity({ 15,3 });
 		App->scene_intro->Sens_ReboterTwo = TRUE;
+		App->audio->PlayFx(App->scene_intro->smallbumper);
 	}
 
 	if (physA == App->scene_intro->SensReboterThree) {
 		App->player->ball->body->SetLinearVelocity({ 15,3 });
 		App->scene_intro->Sens_ReboterThree = TRUE;
+		App->audio->PlayFx(App->scene_intro->bigbumper);
 	}
 
 	if (physA == App->scene_intro->SensReboterFour) {
 		App->player->ball->body->SetLinearVelocity({ 15,3 });
 		App->scene_intro->Sens_ReboterFour = TRUE;
+		App->audio->PlayFx(App->scene_intro->bigbumper);
 	}
+	/*Animals*/
+	if (physA == App->scene_intro->SensHipo) {
+		//App->player->ball->body->SetTransform({ PIXEL_TO_METERS(477), PIXEL_TO_METERS(591) }, 0.0f);
+		App->audio->PlayFx(App->scene_intro->combo);
+		App->scene_intro->Sens_Hipo = TRUE;
+	}
+	if (physA == App->scene_intro->SensTiger) {
+		//App->player->ball->body->SetTransform({ PIXEL_TO_METERS(477), PIXEL_TO_METERS(591) }, 0.0f);
+		App->audio->PlayFx(App->scene_intro->combo);
+		App->scene_intro->Sens_Tiger = TRUE;
+	}
+	if (physA == App->scene_intro->SensLion) {
+		//App->player->ball->body->SetTransform({ PIXEL_TO_METERS(477), PIXEL_TO_METERS(591) }, 0.0f);
+		App->audio->PlayFx(App->scene_intro->combo);
+		App->scene_intro->Sens_Lion = TRUE;
+	}
+
 
 	/*Lost Ball Sensor*/
 	if (physA == App->scene_intro->LostBallSensor) {

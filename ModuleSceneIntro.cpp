@@ -381,20 +381,20 @@ void ModuleSceneIntro::SetReboters() {
 	ReboterTwo = App->physics->CreateRectangle(483, 453, 54, 14, -39, 0.99f);
 	ReboterTwo->body->SetType(b2_staticBody);
 	//Reboter Three
-	ReboterThree = App->physics->CreateRectangle(189, 773, 89, 17, 62, 0.99f);
+	ReboterThree = App->physics->CreateRectangle(189, 773, 89, 17, 62, 0.60f);
 	ReboterThree->body->SetType(b2_staticBody);
 	//Reboter Four
-	ReboterFour = App->physics->CreateRectangle(397, 773, 89, 17, -62, 0.99f);
+	ReboterFour = App->physics->CreateRectangle(397, 773, 89, 17, -62, 0.60f);
 	ReboterFour->body->SetType(b2_staticBody);
 
 }
 
 void ModuleSceneIntro::SetAnimals() {
 	//Lion
-	Lion = App->physics->CreateRectangle(283, 121, 33, 52);
+	Lion = App->physics->CreateRectangle(283, 110, 33, 52);
 	Lion->body->SetType(b2_staticBody);
 	//Tiger
-	Tiger = App->physics->CreateRectangle(55, 256, 33, 60, -28);
+	Tiger = App->physics->CreateRectangle(50, 256, 33, 58, -28);
 	Tiger->body->SetType(b2_staticBody);
 	//Hipo
 	Hipo = App->physics->CreateRectangle(494, 263, 33, 60, 28);
@@ -406,6 +406,14 @@ void ModuleSceneIntro::SetAnimals() {
 
 void ModuleSceneIntro::PlayerInputs() {
 	
+	//F1 Restart ball
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_REPEAT) {
+		App->player->ResetBall();
+	}
+
+
+
+
 	//Right Paddle
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
 		b2Vec2 force = b2Vec2(0, -350);
@@ -630,6 +638,20 @@ void ModuleSceneIntro::CheckInteractions() {
 		Sens_ReboterFour = false;
 	}
 
+	/*Animals*/
+	if (Sens_Hipo) {
+		App->player->ball->body->SetTransform({ PIXEL_TO_METERS(477), PIXEL_TO_METERS(591) }, 0.0f);
+		App->player->ball->body->SetLinearVelocity(b2Vec2(0, -5));
+		Sens_Hipo = false;
+		App->player->CurrentScore += 10;
+	}
+	if (Sens_Tiger) {
+		App->player->ball->body->SetTransform({ PIXEL_TO_METERS(112), PIXEL_TO_METERS(582) }, 0.0f);
+		App->player->ball->body->SetLinearVelocity(b2Vec2(0, -5));
+		Sens_Tiger = false;
+		App->player->CurrentScore += 10;
+	}
+
 }
 
 void ModuleSceneIntro::Sensors() {
@@ -652,9 +674,9 @@ void ModuleSceneIntro::Sensors() {
     SensReboterFour= App->physics->CreateSensor(397, 773,100, 28, false, NULL, -62);
 
 	/*Animals*/
-	SensTiger= App->physics->CreateSensor(494, 263, 38, 62,false,NULL, 28);
+	SensTiger= App->physics->CreateSensor(490, 263, 38, 62,false,NULL, 28);
 	SensHipo = App->physics->CreateSensor(55, 256, 38, 62,false,NULL, -28);
-	SensLion= App->physics->CreateSensor(283, 121, 38, 57 ,false, NULL);
+	SensLion= App->physics->CreateSensor(283, 110, 38, 57 ,false, NULL);
 	
 	/*Lose Sensor*/
 	LostBallSensor = App->physics->CreateSensor(284, 1025, 110 , 20);
@@ -674,4 +696,6 @@ void ModuleSceneIntro::LoadWavFiles() {
 	bell = App->audio->LoadFx("audio/fx/Middle_Circle.wav");
 	combo = App->audio->LoadFx("audio/fx/Bigcombo.wav");
 	greensensor = App->audio->LoadFx("audio/fx/green_light.wav");
+	bigbumper= App->audio->LoadFx("audio/fx/blueBumper.wav");
+	smallbumper = App->audio->LoadFx("audio/fx/smallBumper.wav");
 }
