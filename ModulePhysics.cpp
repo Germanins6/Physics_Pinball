@@ -484,7 +484,12 @@ void ModulePhysics::BeginContact(b2Contact* contact)
 		App->scene_intro->Sens_Lion = TRUE;
 	}
 
-
+	/*Lost Potential*/
+	if (physA == App->scene_intro->SensGate) {
+		//App->player->ball->body->SetTransform({ PIXEL_TO_METERS(477), PIXEL_TO_METERS(591) }, 0.0f);
+		
+		App->scene_intro->Sens_Gate = TRUE;
+	}
 	/*Lost Ball Sensor*/
 	if (physA == App->scene_intro->LostBallSensor) {
 

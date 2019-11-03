@@ -174,4 +174,7 @@ public:
 	PhysBody* R_StarThree;
 	SDL_Rect Circle;
 
+	/*Lost Potential*/
+	PhysBody* SensGate;
+	bool Sens_Gate = false;
 };
