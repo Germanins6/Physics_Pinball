@@ -17,7 +17,7 @@ Debug F1: Show colliders
 Debug F2: Restart Ball
 ##Original Feature
 If top green lights are activated you will earn 1250 points and extra life
-
+If you hit any animal, the cercle at center will gain one part of it. Each time you gain a part, you will earn your points + number of parts(1-8)*200.
 
 #Software and Lib used
 -Visual Studio 2019
