@@ -527,7 +527,7 @@ void ModuleSceneIntro::CheckInteractions() {
 
 	//Checks if 4 sensors are true
 	if (Sens_GreenOne && Sens_GreenTwo && Sens_GreenThree && Sens_GreenFour) {
-		App->player->puntos += 5000;
+		App->player->CurrentScore += 5000;
 		Sens_GreenOne = Sens_GreenTwo = Sens_GreenThree = Sens_GreenFour = false;
 	}
 
@@ -558,8 +558,8 @@ void ModuleSceneIntro::Sensors() {
 	GreenSensorTwo = App->physics->CreateSensor(263, 260, 17, 42);
 	GreenSensorThree = App->physics->CreateSensor(310, 260, 17, 42);
 	GreenSensorFour = App->physics->CreateSensor(362, 260, 17, 42);
+	
 	/*Reboters sensors*/
-
 	SensReboterOne = App->physics->CreateSensor(90, 453, 65, 25,false,NULL, 39);
     SensReboterTwo=App->physics->CreateSensor(483, 453,65, 25, false, NULL, -39);
 	SensReboterThree= App->physics->CreateSensor(189, 773, 100, 28,false,NULL, 62);

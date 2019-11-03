@@ -400,17 +400,17 @@ void ModulePhysics::BeginContact(b2Contact* contact)
 
 	/*Middle Circle Sensors*/
 	if (physA == App->scene_intro->SensCircleOne) {
-		App->player->puntos += 10;
+		App->player->CurrentScore += 10;
 		App->scene_intro->EnableCircleOne = true;
 	}
 
 	if (physA == App->scene_intro->SensCircleTwo) {
-		App->player->puntos += 10;
+		App->player->CurrentScore += 10;
 		App->scene_intro->EnableCircleTwo = true;
 	}
 
 	if (physA == App->scene_intro->SensCircleThree) {
-		App->player->puntos += 10;
+		App->player->CurrentScore += 10;
 		App->scene_intro->EnableCircleThree = true;
 	}
 
