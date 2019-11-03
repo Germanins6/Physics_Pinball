@@ -443,21 +443,21 @@ void ModulePhysics::BeginContact(b2Contact* contact)
 	/*Reboters*/
 	if (physA == App->scene_intro->SensReboterOne) {
 		
-		App->player->ball->body->SetLinearVelocity({ 30,3});
+		App->player->ball->body->SetLinearVelocity({ 15,3});
 	}
 
 	if (physA == App->scene_intro->SensReboterTwo) {
 		
-		App->player->ball->body->SetLinearVelocity({ 30,3 });
+		App->player->ball->body->SetLinearVelocity({ 15,3 });
 	}
 
 	if (physA == App->scene_intro->SensReboterThree) {
 		
-		App->player->ball->body->SetLinearVelocity({ 30,3 });
+		App->player->ball->body->SetLinearVelocity({ 15,3 });
 	}
 	if (physA == App->scene_intro->SensReboterFour) {
 		
-		App->player->ball->body->SetLinearVelocity({ 30,3 });
+		App->player->ball->body->SetLinearVelocity({ 15,3 });
 	}
 
 	/*Lost Ball Sensor*/
