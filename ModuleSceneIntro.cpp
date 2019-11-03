@@ -375,10 +375,10 @@ void ModuleSceneIntro::SetThrower() {
 
 void ModuleSceneIntro::SetReboters() {
 	//Reboter One
-	ReboterOne = App->physics->CreateRectangle(90,453,54,14,39,0.99f);
+	ReboterOne = App->physics->CreateRectangle(90,453,54,14,39,0.70f);
 	ReboterOne->body->SetType(b2_staticBody);
 	//Reboter Two
-	ReboterTwo = App->physics->CreateRectangle(483, 453, 54, 14, -39, 0.99f);
+	ReboterTwo = App->physics->CreateRectangle(483, 453, 54, 14, -39, 0.70f);
 	ReboterTwo->body->SetType(b2_staticBody);
 	//Reboter Three
 	ReboterThree = App->physics->CreateRectangle(189, 773, 89, 17, 62, 0.60f);
@@ -713,6 +713,7 @@ void ModuleSceneIntro::CheckInteractions() {
 		App->player->CurrentScore += 10;
 	}
 
+
 	/*Bottom CircleCombo*/
 	if (counterCombo == 1) {
 		App->renderer->Blit(dynElements, 242, 566, &CircleComboOne);
@@ -743,7 +744,12 @@ void ModuleSceneIntro::CheckInteractions() {
 	if (GetComboExtra) App->player->CurrentScore = App->player->CurrentScore +  (200 * counterCombo);
 	GetComboExtra = false;
 
-
+	/*Lost Potential*/
+	if (Sens_Gate) {
+		thrower->body->ApplyForceToCenter(b2Vec2(0, 0), 1);
+		Sens_Gate = false;
+		
+	}
 }
 
 void ModuleSceneIntro::Sensors() {
@@ -785,9 +791,9 @@ void ModuleSceneIntro::Sensors() {
 	L_StarThree = App->physics->CreateSensor(252, 803, NULL, NULL, true, 20);
 	R_StarThree = App->physics->CreateSensor(338, 803, NULL, NULL, true, 20);
 
+	/*Lost Potential*/
 
-
-
+	SensGate= App->physics->CreateSensor(519, 198, 10, 10, false);
 
 }
 

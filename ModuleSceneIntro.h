@@ -182,4 +182,7 @@ public:
 	SDL_Rect CircleComboSeven;
 	SDL_Rect CircleComboEight;
 
+	/*Lost Potential*/
+	PhysBody* SensGate;
+	bool Sens_Gate = false;
 };
