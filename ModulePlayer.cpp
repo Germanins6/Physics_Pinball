@@ -23,7 +23,7 @@ bool ModulePlayer::Start()
 	LOG("Loading player");
 	textball = App->textures->Load("sprites/ball2.png");
 	fontpoints = App->fonts->Load("sprites/preloaderfont.png", "1234567890%", 1);
-	ResetBall();
+	ball = App->physics->CreateCircle(570, 913, 15);
 
 	return true;
 }
@@ -61,5 +61,9 @@ void ModulePlayer::DrawBall() {
 }
 
 void ModulePlayer::ResetBall() {
-	ball = App->physics->CreateCircle(570, 913, 15);
+
+	//KILLS GAME
+	 
+	//ball->body->SetTransform({ PIXEL_TO_METERS(570), PIXEL_TO_METERS(913) }, 0.0f);
+	//ball->body->SetLinearVelocity({ 0,0 });
 }
