@@ -38,7 +38,8 @@ bool ModuleSceneIntro::Start()
 
 	//Set Thrower in Scene
 	SetThrower();
-	
+	//SetReboters
+	SetReboters();
 		
 	return true;
 }
@@ -51,6 +52,7 @@ bool ModuleSceneIntro::CleanUp()
 	App->textures->Unload(lifes);
 	App->textures->Unload(background);
 	App->textures->Unload(textthrower);
+	
 	App->textures->Unload(dynElements);
 	return true;
 }
@@ -344,6 +346,21 @@ void ModuleSceneIntro::SetThrower() {
 
 	b2PrismaticJoint* joint_launcher = (b2PrismaticJoint*)App->physics->world->CreateJoint(&prismaticJoint_launcher);
 }
+void ModuleSceneIntro::SetReboters() {
+	//Reboter One
+	ReboterOne = App->physics->CreateRectangle(90,453,54,14,39,0.99f);
+	ReboterOne->body->SetType(b2_staticBody);
+	//Reboter Two
+	ReboterTwo = App->physics->CreateRectangle(483, 453, 54, 14, -39, 0.99f);
+	ReboterTwo->body->SetType(b2_staticBody);
+	//Reboter Three
+	ReboterThree = App->physics->CreateRectangle(189, 773, 89, 17, 62, 0.99f);
+	ReboterThree->body->SetType(b2_staticBody);
+	//Reboter Four
+	ReboterFour = App->physics->CreateRectangle(397, 773, 89, 17, -62, 0.99f);
+	ReboterFour->body->SetType(b2_staticBody);
+
+}
 
 void ModuleSceneIntro::PlayerInputs() {
 	
@@ -393,6 +410,7 @@ void ModuleSceneIntro::PlayerInputs() {
 	}
 
 }
+
 
 void ModuleSceneIntro::DrawLifes() {
 
@@ -470,6 +488,7 @@ void ModuleSceneIntro::LoadTextures() {
 		GreenStick.w = 15;
 		GreenStick.h = 41;
 
+
 	}
 
 	//Arrows
@@ -490,6 +509,10 @@ void ModuleSceneIntro::LoadTextures() {
 
 		Arrows.speed = 0.1f;
 	}
+	
+
+
+
 }
 
 void ModuleSceneIntro::CheckInteractions() {
@@ -524,6 +547,13 @@ void ModuleSceneIntro::Sensors() {
 	GreenSensorTwo = App->physics->CreateSensor(263, 260, 17, 42);
 	GreenSensorThree = App->physics->CreateSensor(310, 260, 17, 42);
 	GreenSensorFour = App->physics->CreateSensor(362, 260, 17, 42);
+	/*Reboters sensors*/
+
+	SensReboterOne = App->physics->CreateSensor(90, 453, 65, 25,false,NULL, 39);
+    SensReboterTwo=App->physics->CreateSensor(483, 453,65, 25, false, NULL, -39);
+	SensReboterThree= App->physics->CreateSensor(189, 773, 100, 28,false,NULL, 62);
+    SensReboterFour= App->physics->CreateSensor(397, 773,100, 28, false, NULL, -62);
+
 
 	/*Lose Sensor*/
 	LostBallSensor = App->physics->CreateSensor(284, 1025, 110 , 20);
