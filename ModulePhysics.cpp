@@ -59,7 +59,7 @@ update_status ModulePhysics::PreUpdate()
 	return UPDATE_CONTINUE;
 }
 
-PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius, bool dynamic)
+PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius, bool dynamic, float restitution)
 {
 	b2BodyDef body;
 	if (dynamic == false)
@@ -74,6 +74,7 @@ PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius, bool dynamic)
 	shape.m_radius = PIXEL_TO_METERS(radius);
 	b2FixtureDef fixture;
 	fixture.shape = &shape;
+	fixture.restitution = restitution;
 	fixture.density = 1.0f;
 
 	b->CreateFixture(&fixture);
@@ -111,7 +112,7 @@ PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height, in
 	return pbody;
 }
 
-PhysBody* ModulePhysics::CreateSensor(int x, int y, int width, int height, bool circle, int radius, int angle )
+PhysBody* ModulePhysics::CreateSensor(int x, int y, int width, int height, bool circle, int radius, int angle)
 {
 	b2BodyDef body;
 	body.type = b2_staticBody;
@@ -198,8 +199,6 @@ update_status ModulePhysics::PostUpdate()
 	if(debug)
 		return UPDATE_CONTINUE;
 
-	// Bonus code: this will iterate all objects in the world and draw the circles
-	// You need to provide your own macro to translate meters to pixels
 	for(b2Body* b = world->GetBodyList(); b; b = b->GetNext())
 	{
 		for(b2Fixture* f = b->GetFixtureList(); f; f = f->GetNext())
@@ -286,15 +285,10 @@ update_status ModulePhysics::PostUpdate()
 
 
 			}
-			// App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN
-			// test if the current body contains mouse position
 		}
 	}
 
-	// If a body was selected we will attach a mouse joint to it
-	// so we can pull it around
-	// TODO 2: If a body was selected, create a mouse joint
-	// using mouse_joint class property
+
 	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT && mouse_joint != nullptr)
 	{
 		mouse_joint->SetTarget({ PIXEL_TO_METERS(App->input->GetMouseX()),PIXEL_TO_METERS(App->input->GetMouseY()) });
@@ -311,10 +305,7 @@ update_status ModulePhysics::PostUpdate()
 		world->DestroyJoint(mouse_joint);
 		mouse_joint = nullptr;
 	}
-	// TODO 3: If the player keeps pressing the mouse button, update
-	// target position and draw a red line between both anchor points
 
-	// TODO 4: If the player releases the mouse button, destroy the joint
 
 	return UPDATE_CONTINUE;
 }
@@ -410,17 +401,17 @@ void ModulePhysics::BeginContact(b2Contact* contact)
 	/*Middle Circle Sensors*/
 	if (physA == App->scene_intro->SensCircleOne) {
 		App->player->puntos += 10;
-		App->player->ball->body->SetLinearVelocity({ 10,0 });
+		App->scene_intro->EnableCircleOne = true;
 	}
 
 	if (physA == App->scene_intro->SensCircleTwo) {
 		App->player->puntos += 10;
-		App->player->ball->body->SetLinearVelocity({ 10,0 });
+		App->scene_intro->EnableCircleTwo = true;
 	}
 
 	if (physA == App->scene_intro->SensCircleThree) {
 		App->player->puntos += 10;
-		App->player->ball->body->SetLinearVelocity({ 10,0 });
+		App->scene_intro->EnableCircleThree = true;
 	}
 
 	/*fsSticks*/
@@ -442,27 +433,38 @@ void ModulePhysics::BeginContact(b2Contact* contact)
 	
 	/*Reboters*/
 	if (physA == App->scene_intro->SensReboterOne) {
-		
 		App->player->ball->body->SetLinearVelocity({ 15,3});
 	}
 
 	if (physA == App->scene_intro->SensReboterTwo) {
-		
 		App->player->ball->body->SetLinearVelocity({ 15,3 });
 	}
 
 	if (physA == App->scene_intro->SensReboterThree) {
-		
 		App->player->ball->body->SetLinearVelocity({ 15,3 });
 	}
+
 	if (physA == App->scene_intro->SensReboterFour) {
-		
 		App->player->ball->body->SetLinearVelocity({ 15,3 });
 	}
 
 	/*Lost Ball Sensor*/
 	if (physA == App->scene_intro->LostBallSensor) {
+
+		//Less balls
 		App->player->lifes -= 1;
+
+		//Reset Arrows
+		App->scene_intro->L_Arrow_enabled = false;
+		App->scene_intro->R_Arrow_enabled = false;
+		
+		//Reset Green Sensors
+		App->scene_intro->Sens_GreenOne = false;
+		App->scene_intro->Sens_GreenTwo = false;
+		App->scene_intro->Sens_GreenThree = false;
+		App->scene_intro->Sens_GreenFour = false;
+
+		//Calls reset function in player
 		App->player->reset = true;
 	}
 

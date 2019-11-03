@@ -25,7 +25,6 @@ ModuleSceneIntro::~ModuleSceneIntro()
 bool ModuleSceneIntro::Start()
 {
 
-	
 	//Loading all asset textures
 	LoadTextures();
 
@@ -60,20 +59,15 @@ bool ModuleSceneIntro::CleanUp()
 // Update: draw background
 update_status ModuleSceneIntro::Update()
 {
-	App->renderer->Blit(background, 0, 0, NULL);
-	App->renderer->Blit(dynElements, 142, 433, &DisableArrow, 1.0f, -20);
-	App->renderer->Blit(dynElements, 390, 433, &DisableArrow, 1.0f, 20);
-
-	
-
-	CheckInteractions();
+	//Blits all elements
+	DrawMap();
 	DrawLifes();
 
+	//Returns action when ball collides with sensor
+	CheckInteractions();
+
+
 	LOG("X: %d and Y: %d", App->input->GetMouseX(), App->input->GetMouseY());
-
-
-
-
 
 	return UPDATE_CONTINUE;
 }
@@ -90,6 +84,25 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 }
 
 //Must be called in start
+void ModuleSceneIntro::DrawMap() {
+	App->renderer->Blit(background, 0, 0, NULL);
+	App->renderer->Blit(dynElements, 142, 433, &DisableArrow, 1.0f, -20);
+	App->renderer->Blit(dynElements, 390, 433, &DisableArrow, 1.0f, 20);
+}
+
+void ModuleSceneIntro::DrawLifes() {
+
+	//Blit Score
+	App->renderer->Blit(lifes, 10, 10, &score);
+
+	//Blit Lifes
+	if (App->player->lifes == 3) App->renderer->Blit(lifes, 10, 74, &all_lifes);
+	if (App->player->lifes == 2) App->renderer->Blit(lifes, 10, 74, &twolifes);
+	if (App->player->lifes == 1) App->renderer->Blit(lifes, 10, 74, &onelife);
+	if (App->player->lifes <= 0) App->renderer->Blit(lifes, 10, 74, &nolife);
+
+}
+
 void ModuleSceneIntro::SetBackgroundColliders() {
 
 	//Monkey planks
@@ -283,9 +296,9 @@ void ModuleSceneIntro::SetBackgroundColliders() {
 
 
 	//Static Circles in middle
-	CircleOne = App->physics->CreateCircle(211, 415, 34, false);
-	CircleTwo = App->physics->CreateCircle(359, 415, 34, false);
-	CircleThree = App->physics->CreateCircle(286, 510, 34, false);
+	CircleOne = App->physics->CreateCircle(211, 415, 34, false, 0.8f);
+	CircleTwo = App->physics->CreateCircle(359, 415, 34, false, 0.8f);
+	CircleThree = App->physics->CreateCircle(286, 510, 34, false, 0.8f);
 
 }
 
@@ -346,6 +359,7 @@ void ModuleSceneIntro::SetThrower() {
 
 	b2PrismaticJoint* joint_launcher = (b2PrismaticJoint*)App->physics->world->CreateJoint(&prismaticJoint_launcher);
 }
+
 void ModuleSceneIntro::SetReboters() {
 	//Reboter One
 	ReboterOne = App->physics->CreateRectangle(90,453,54,14,39,0.99f);
@@ -411,19 +425,6 @@ void ModuleSceneIntro::PlayerInputs() {
 
 }
 
-
-void ModuleSceneIntro::DrawLifes() {
-
-	//Blit Score
-	App->renderer->Blit(lifes, 10, 10, &score);
-
-	//Blit Lifes
-	if (App->player->lifes == 3) App->renderer->Blit(lifes, 10,74, &all_lifes);
-	if (App->player->lifes == 2) App->renderer->Blit(lifes, 10, 74, &twolifes);
-	if (App->player->lifes == 1) App->renderer->Blit(lifes, 10, 74, &onelife);
-	if (App->player->lifes <= 0) App->renderer->Blit(lifes, 10, 74, &nolife);
-
-}
 
 //SHOULD BE CALLED ONLY IN START--->>>>> REMEMBER UNLOAD ALL THIS TEX!!!
 void ModuleSceneIntro::LoadTextures() {
@@ -510,9 +511,11 @@ void ModuleSceneIntro::LoadTextures() {
 		Arrows.speed = 0.1f;
 	}
 	
-
-
-
+	//Middle Balls
+	CircleGlow.x = 350;
+	CircleGlow.y = 180;
+	CircleGlow.w = 68;
+	CircleGlow.h = 68;
 }
 
 void ModuleSceneIntro::CheckInteractions() {
@@ -528,9 +531,17 @@ void ModuleSceneIntro::CheckInteractions() {
 		Sens_GreenOne = Sens_GreenTwo = Sens_GreenThree = Sens_GreenFour = false;
 	}
 
+	/*Arrows Blit*/
 	if(L_Arrow_enabled) App->renderer->Blit(App->scene_intro->dynElements, 145, 433, &App->scene_intro->Arrows.GetCurrentFrame(), 1.0f, -20);
 	if(R_Arrow_enabled) App->renderer->Blit(App->scene_intro->dynElements, 390, 433, &App->scene_intro->Arrows.GetCurrentFrame(), 1.0f, 20);
 
+	/*Middle Circles*/
+	if (EnableCircleOne) App->renderer->Blit(App->scene_intro->dynElements, 178, 385, &CircleGlow);
+	App->scene_intro->EnableCircleOne = false;
+	if (EnableCircleTwo) App->renderer->Blit(App->scene_intro->dynElements, 326, 385, &CircleGlow);
+	App->scene_intro->EnableCircleTwo = false;
+	if (EnableCircleThree) App->renderer->Blit(App->scene_intro->dynElements, 252, 478, &CircleGlow);
+	App->scene_intro->EnableCircleThree = false;
 
 
 }
