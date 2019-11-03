@@ -411,6 +411,10 @@ void ModuleSceneIntro::PlayerInputs() {
 		App->player->ResetBall();
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN) {
+		counterCombo += 1;
+	}
+
 
 
 
@@ -582,7 +586,7 @@ void ModuleSceneIntro::LoadTextures() {
 		Arrows.PushBack({ 296,689,55,130 });
 		Arrows.PushBack({ 354,689,55,130 });
 		Arrows.PushBack({ 413,689,55,130 });
-		Arrows.PushBack({ 481,689,55,130 });
+		Arrows.PushBack({ 471,689,55,130 });
 
 		Arrows.speed = 0.1f;
 	}
@@ -592,6 +596,49 @@ void ModuleSceneIntro::LoadTextures() {
 	CircleGlow.y = 180;
 	CircleGlow.w = 68;
 	CircleGlow.h = 68;
+
+	/*Bottom CircleCombo*/
+	CircleComboOne.x = 233;
+	CircleComboOne.y= 254;
+	CircleComboOne.w = 103;
+	CircleComboOne.h = 102;
+
+	CircleComboTwo.x = 440;
+	CircleComboTwo.y = 254;
+	CircleComboTwo.w = 103;
+	CircleComboTwo.h = 102;
+
+	CircleComboThree.x = 129;
+	CircleComboThree.y = 356;
+	CircleComboThree.w = 103;
+	CircleComboThree.h = 102;
+
+	CircleComboFour.x = 336;
+	CircleComboFour.y = 356;
+	CircleComboFour.w = 103;
+	CircleComboFour.h = 102;
+
+	CircleComboFive.x = 25;
+	CircleComboFive.y = 459;
+	CircleComboFive.w = 103;
+	CircleComboFive.h = 102;
+
+	CircleComboSix.x = 233;
+	CircleComboSix.y = 459;
+	CircleComboSix.w = 103;
+	CircleComboSix.h = 102;
+
+	CircleComboSeven.x = 440;
+	CircleComboSeven.y = 459;
+	CircleComboSeven.w = 103;
+	CircleComboSeven.h = 102;
+
+	CircleComboEight.x = 129;
+	CircleComboEight.y = 561;
+	CircleComboEight.w = 103;
+	CircleComboEight.h = 102;
+
+
 }
 
 void ModuleSceneIntro::CheckInteractions() {
@@ -665,6 +712,37 @@ void ModuleSceneIntro::CheckInteractions() {
 		Sens_Tiger = false;
 		App->player->CurrentScore += 10;
 	}
+
+	/*Bottom CircleCombo*/
+	if (counterCombo == 1) {
+		App->renderer->Blit(dynElements, 242, 566, &CircleComboOne);
+	}
+	if (counterCombo == 2) {
+		App->renderer->Blit(dynElements, 242, 566, &CircleComboTwo);
+	}
+	if (counterCombo == 3) {
+		App->renderer->Blit(dynElements, 242, 566, &CircleComboThree);
+	}
+	if (counterCombo == 4) {
+		App->renderer->Blit(dynElements, 242, 566, &CircleComboFour);
+	}
+	if (counterCombo == 5) {
+		App->renderer->Blit(dynElements, 242, 566, &CircleComboFive);
+	}
+	if (counterCombo == 6) {
+		App->renderer->Blit(dynElements, 242, 566, &CircleComboSix);
+	}
+	if (counterCombo == 7) {
+		App->renderer->Blit(dynElements, 242, 566, &CircleComboSeven);
+	}
+	if (counterCombo == 8) {
+		App->renderer->Blit(dynElements, 242, 566, &CircleComboEight);
+		counterCombo = 0;
+	}
+
+	if (GetComboExtra) App->player->CurrentScore = App->player->CurrentScore +  (200 * counterCombo);
+	GetComboExtra = false;
+
 
 }
 

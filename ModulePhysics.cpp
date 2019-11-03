@@ -467,21 +467,31 @@ void ModulePhysics::BeginContact(b2Contact* contact)
 		App->scene_intro->Sens_ReboterFour = TRUE;
 		App->audio->PlayFx(App->scene_intro->bigbumper);
 	}
+
+
 	/*Animals*/
 	if (physA == App->scene_intro->SensHipo) {
 		//App->player->ball->body->SetTransform({ PIXEL_TO_METERS(477), PIXEL_TO_METERS(591) }, 0.0f);
 		App->audio->PlayFx(App->scene_intro->combo);
 		App->scene_intro->Sens_Hipo = TRUE;
+		App->scene_intro->counterCombo += 1;
+		App->scene_intro->GetComboExtra = true;
 	}
 	if (physA == App->scene_intro->SensTiger) {
 		//App->player->ball->body->SetTransform({ PIXEL_TO_METERS(477), PIXEL_TO_METERS(591) }, 0.0f);
 		App->audio->PlayFx(App->scene_intro->combo);
 		App->scene_intro->Sens_Tiger = TRUE;
+		App->scene_intro->counterCombo += 1;
+		App->scene_intro->GetComboExtra = true;
+
 	}
 	if (physA == App->scene_intro->SensLion) {
 		//App->player->ball->body->SetTransform({ PIXEL_TO_METERS(477), PIXEL_TO_METERS(591) }, 0.0f);
 		App->audio->PlayFx(App->scene_intro->combo);
 		App->scene_intro->Sens_Lion = TRUE;
+		App->scene_intro->counterCombo += 1;
+		App->scene_intro->GetComboExtra = true;
+
 	}
 
 
@@ -491,6 +501,7 @@ void ModulePhysics::BeginContact(b2Contact* contact)
 		//Update Score
 		App->player->TotalScore += App->player->CurrentScore;		//Stores total score in current game
 		App->player->CurrentScore = 0;								//Sets score 0 
+		App->scene_intro->counterCombo = 0;
 
 		//Less balls
 		App->player->lifes -= 1;

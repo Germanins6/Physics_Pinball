@@ -156,6 +156,7 @@ public:
 	bool Sens_Hipo = false;
 	bool Sens_Tiger = false;
 	int counterCombo = 0;
+	bool GetComboExtra = false;
 
 	/*Arrow Sensors and Animation*/
 	SDL_Rect DisableArrow;
@@ -172,6 +173,13 @@ public:
 	PhysBody* R_StarOne;
 	PhysBody* R_StarTwo;
 	PhysBody* R_StarThree;
-	SDL_Rect Circle;
+	SDL_Rect CircleComboOne;
+	SDL_Rect CircleComboTwo;
+	SDL_Rect CircleComboThree;
+	SDL_Rect CircleComboFour;
+	SDL_Rect CircleComboFive;
+	SDL_Rect CircleComboSix;
+	SDL_Rect CircleComboSeven;
+	SDL_Rect CircleComboEight;
 
 };
