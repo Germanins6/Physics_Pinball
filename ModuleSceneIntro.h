@@ -149,6 +149,7 @@ public:
 	PhysBody* SensHipo;
 	PhysBody* SensLion;
 	PhysBody* SensTiger;
+	int counterCombo = 0;
 
 	/*Arrow Sensors and Animation*/
 	SDL_Rect DisableArrow;
@@ -157,5 +158,14 @@ public:
 	PhysBody* Arrow_Right;
 	bool L_Arrow_enabled = false;
 	bool R_Arrow_enabled = false;
+
+	/*Bottom Circles*/
+	PhysBody* L_StarOne;
+	PhysBody* L_StarTwo;
+	PhysBody* L_StarThree;
+	PhysBody* R_StarOne;
+	PhysBody* R_StarTwo;
+	PhysBody* R_StarThree;
+	SDL_Rect Circle;
 
 };
