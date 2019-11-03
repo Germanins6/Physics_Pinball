@@ -86,7 +86,7 @@ PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius, bool dynamic)
 	return pbody;
 }
 
-PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height,int angle )
+PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height, int angle, float restitution)
 {
 	b2BodyDef body;
 	body.type = b2_dynamicBody;
@@ -99,7 +99,7 @@ PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height,int
 	b2FixtureDef fixture;
 	fixture.shape = &box;
 	fixture.density = 1.0f;
-
+	fixture.restitution = restitution;
 	b->CreateFixture(&fixture);
 
 	PhysBody* pbody = new PhysBody();
@@ -136,12 +136,13 @@ PhysBody* ModulePhysics::CreateSensor(int x, int y, int width, int height, bool 
 		fixture.shape = &shape;
 		fixture.density = 1.0f;
 		fixture.isSensor = true;
+		
 		b->CreateFixture(&fixture);
 
 	}
 
 	
-
+	
 	PhysBody* pbody = new PhysBody();
 	pbody->body = b;
 	b->SetUserData(pbody);
@@ -392,6 +393,8 @@ int PhysBody::RayCast(int x1, int y1, int x2, int y2, float& normal_x, float& no
 
 void ModulePhysics::BeginContact(b2Contact* contact)
 {
+	float32 angle;
+	angle = App->player->ball->body->GetAngle();
 	PhysBody* physA = (PhysBody*)contact->GetFixtureA()->GetBody()->GetUserData();
 	PhysBody* physB = (PhysBody*)contact->GetFixtureB()->GetBody()->GetUserData();
 
@@ -401,7 +404,7 @@ void ModulePhysics::BeginContact(b2Contact* contact)
 	if(physB && physB->listener != NULL)
 		physB->listener->OnCollision(physB, physA);
 
-
+	
 	//Sensors
 
 	/*Middle Circle Sensors*/
@@ -435,6 +438,26 @@ void ModulePhysics::BeginContact(b2Contact* contact)
 
 	if (physA == App->scene_intro->GreenSensorFour) {
 		App->scene_intro->Sens_GreenFour = true;
+	}
+	
+	/*Reboters*/
+	if (physA == App->scene_intro->SensReboterOne) {
+		
+		App->player->ball->body->SetLinearVelocity({ 30,3});
+	}
+
+	if (physA == App->scene_intro->SensReboterTwo) {
+		
+		App->player->ball->body->SetLinearVelocity({ 30,3 });
+	}
+
+	if (physA == App->scene_intro->SensReboterThree) {
+		
+		App->player->ball->body->SetLinearVelocity({ 30,3 });
+	}
+	if (physA == App->scene_intro->SensReboterFour) {
+		
+		App->player->ball->body->SetLinearVelocity({ 30,3 });
 	}
 
 	/*Lost Ball Sensor*/

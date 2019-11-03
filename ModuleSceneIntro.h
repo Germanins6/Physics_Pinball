@@ -80,6 +80,7 @@ public:
 	//INTERACTIVE ELEMENTS
 	SDL_Texture* dynElements;
 	SDL_Rect GreenStick;
+	
 
 	/*Middle Circles*/
 	PhysBody* CircleOne;
@@ -108,7 +109,14 @@ public:
 	PhysBody* ReboterOne;
 	PhysBody* ReboterTwo;
 	PhysBody* ReboterThree;
-	PhysBody* reboterFour;
-	SDL_Texture* textreboter;
+	PhysBody* ReboterFour;
+	
+
+	/*Reboters Sensors*/
+	PhysBody* SensReboterOne;
+	PhysBody* SensReboterTwo;
+	PhysBody* SensReboterThree;
+	PhysBody* SensReboterFour;
+
 
 };
