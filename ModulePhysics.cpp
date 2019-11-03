@@ -403,16 +403,22 @@ void ModulePhysics::BeginContact(b2Contact* contact)
 	if (physA == App->scene_intro->SensCircleOne) {
 		App->player->CurrentScore += 10;
 		App->scene_intro->EnableCircleOne = true;
+		App->player->ball->body->SetLinearVelocity({ 10.0f,3.0f });
+
 	}
 
 	if (physA == App->scene_intro->SensCircleTwo) {
 		App->player->CurrentScore += 10;
 		App->scene_intro->EnableCircleTwo = true;
+		App->player->ball->body->SetLinearVelocity({ 10.0f,3.0f });
+
 	}
 
 	if (physA == App->scene_intro->SensCircleThree) {
 		App->player->CurrentScore += 10;
 		App->scene_intro->EnableCircleThree = true;
+		App->player->ball->body->SetLinearVelocity({10.0f,3.0f });
+
 	}
 
 	/*fsSticks*/
@@ -420,6 +426,7 @@ void ModulePhysics::BeginContact(b2Contact* contact)
 		App->audio->PlayFx(App->scene_intro->greensensor);
 		App->scene_intro->Sens_GreenOne = true;
 	}
+
 
 	if (physA == App->scene_intro->GreenSensorTwo) {
 		App->audio->PlayFx(App->scene_intro->greensensor);

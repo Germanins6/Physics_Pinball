@@ -23,15 +23,19 @@ public:
 public:
 	PhysBody* ball;
 	SDL_Texture* textball;
-	bool thrower;
-	float vely;
 	int lifes = 3;
-	int CurrentScore = 0;
-	int	TotalScore = 0;
-	int MaxScore = 0;
-	int fontpoints = -1;
-	char points_text[10];
 	bool reset = false;
+
+
+	/*Fonts and points*/
+	int fontpoints = -1;
+	int CurrentScore = 0;
+	char points_text[10];
+	int	TotalScore = 0;
+	char points_total[10];
+	int MaxScore = 0;
+	char points_max[10];
+
 
 
 };
