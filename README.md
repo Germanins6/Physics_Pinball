@@ -14,6 +14,7 @@ https://github.com/Germanins6/Physics_Pinball
 Left and Right arrows: Paddles
 Hold and release Down Arrow: Launch the ball
 Debug F1: Show colliders
+Debug F2: Restart Ball
 
 ##Original Feature
 If top green lights are activated you will earn 1250 points and extra life
