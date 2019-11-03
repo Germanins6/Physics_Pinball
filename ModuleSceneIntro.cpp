@@ -538,21 +538,21 @@ void ModuleSceneIntro::CheckInteractions() {
 	if (Sens_ReboterOne) {
 		App->renderer->Blit(dynElements, 68, 441, &RebotersOT, 0.01f, 39);
 		Sens_ReboterOne = false;
-		App->player->puntos += 10;
+		App->player->CurrentScore += 10;
 	}
 	if (Sens_ReboterTwo) {
 		App->renderer->Blit(dynElements, 451, 441, &RebotersOT, 0.01f, -39);
-		App->player->puntos += 10;
+		App->player->CurrentScore += 10;
 		Sens_ReboterTwo = false;
 	}
 	if (Sens_ReboterThree) {
 		App->renderer->Blit(dynElements, 158, 758, &RebotersTF, 0.4f, 70);
 		Sens_ReboterThree = false;
-		App->player->puntos += 10;
+		App->player->CurrentScore += 10;
 	}
 	if (Sens_ReboterFour) {
 		App->renderer->Blit(dynElements, 343, 761, &RebotersTF, 0.4f, -70);
-		App->player->puntos += 10;
+		App->player->CurrentScore += 10;
 		Sens_ReboterFour = false;
 	}
 	//Checks if 4 sensors are true
