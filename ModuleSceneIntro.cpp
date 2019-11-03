@@ -25,8 +25,10 @@ ModuleSceneIntro::~ModuleSceneIntro()
 bool ModuleSceneIntro::Start()
 {
 
-	//Loading all asset textures
+	//Loading all asset textures, music and fx
 	LoadTextures();
+	App->audio->PlayMusic("audio/music/main_theme.ogg", 1.0f);
+	LoadWavFiles();
 
 	//Draw all vectors owned by the background
 	SetBackgroundColliders();
@@ -52,7 +54,9 @@ bool ModuleSceneIntro::CleanUp()
 	App->textures->Unload(lifes);
 	App->textures->Unload(background);
 	App->textures->Unload(textthrower);
+
 	
+
 
 	App->textures->Unload(dynElements);
 	return true;
@@ -570,10 +574,40 @@ void ModuleSceneIntro::LoadTextures() {
 
 void ModuleSceneIntro::CheckInteractions() {
 	/*Top Green Sensors*/
-	if (Sens_GreenOne) App->renderer->Blit(dynElements, 203, 239, &GreenStick);
-	if (Sens_GreenTwo) App->renderer->Blit(dynElements, 253, 239, &GreenStick);
-	if (Sens_GreenThree) App->renderer->Blit(dynElements, 300, 239, &GreenStick);
-	if (Sens_GreenFour) App->renderer->Blit(dynElements, 352, 239, &GreenStick);
+	if (Sens_GreenOne)App->renderer->Blit(dynElements, 203, 239, &GreenStick);
+	if (Sens_GreenTwo)App->renderer->Blit(dynElements, 253, 239, &GreenStick);	
+	if (Sens_GreenThree)App->renderer->Blit(dynElements, 300, 239, &GreenStick);	
+	if (Sens_GreenFour)App->renderer->Blit(dynElements, 352, 239, &GreenStick);
+
+	//Checks if 4 sensors are true
+	if (Sens_GreenOne && Sens_GreenTwo && Sens_GreenThree && Sens_GreenFour) {
+		App->player->CurrentScore += 1250;
+		Sens_GreenOne = Sens_GreenTwo = Sens_GreenThree = Sens_GreenFour = false;
+		App->audio->PlayFx(combo);
+	}
+
+	/*Arrows Blit*/
+	if(L_Arrow_enabled) App->renderer->Blit(App->scene_intro->dynElements, 145, 433, &App->scene_intro->Arrows.GetCurrentFrame(), 1.0f, -20);
+	if(R_Arrow_enabled) App->renderer->Blit(App->scene_intro->dynElements, 390, 433, &App->scene_intro->Arrows.GetCurrentFrame(), 1.0f, 20);
+
+	/*Middle Circles*/
+	if (EnableCircleOne) {
+		App->renderer->Blit(App->scene_intro->dynElements, 178, 385, &CircleGlow);
+		App->audio->PlayFx(bell);
+		App->scene_intro->EnableCircleOne = false;
+	}
+	if (EnableCircleTwo) {
+		App->renderer->Blit(App->scene_intro->dynElements, 326, 385, &CircleGlow);
+		App->audio->PlayFx(bell);
+		App->scene_intro->EnableCircleTwo = false;
+	}
+	if (EnableCircleThree) {
+		App->renderer->Blit(App->scene_intro->dynElements, 252, 478, &CircleGlow);
+		App->audio->PlayFx(bell);
+		App->scene_intro->EnableCircleThree = false;
+	}
+
+	/*Bouncers*/
 
 	if (Sens_ReboterOne) {
 		App->renderer->Blit(dynElements, 68, 441, &RebotersOT, 0.01f, 39);
@@ -595,24 +629,6 @@ void ModuleSceneIntro::CheckInteractions() {
 		App->player->CurrentScore += 10;
 		Sens_ReboterFour = false;
 	}
-	//Checks if 4 sensors are true
-	if (Sens_GreenOne && Sens_GreenTwo && Sens_GreenThree && Sens_GreenFour) {
-		App->player->CurrentScore += 5000;
-		Sens_GreenOne = Sens_GreenTwo = Sens_GreenThree = Sens_GreenFour = false;
-	}
-
-	/*Arrows Blit*/
-	if(L_Arrow_enabled) App->renderer->Blit(App->scene_intro->dynElements, 145, 433, &App->scene_intro->Arrows.GetCurrentFrame(), 1.0f, -20);
-	if(R_Arrow_enabled) App->renderer->Blit(App->scene_intro->dynElements, 390, 433, &App->scene_intro->Arrows.GetCurrentFrame(), 1.0f, 20);
-
-	/*Middle Circles*/
-	if (EnableCircleOne) App->renderer->Blit(App->scene_intro->dynElements, 178, 385, &CircleGlow);
-	App->scene_intro->EnableCircleOne = false;
-	if (EnableCircleTwo) App->renderer->Blit(App->scene_intro->dynElements, 326, 385, &CircleGlow);
-	App->scene_intro->EnableCircleTwo = false;
-	if (EnableCircleThree) App->renderer->Blit(App->scene_intro->dynElements, 252, 478, &CircleGlow);
-	App->scene_intro->EnableCircleThree = false;
-
 
 }
 
@@ -642,4 +658,13 @@ void ModuleSceneIntro::Sensors() {
 	/*Arrow Sensors*/
 	Arrow_Left = App->physics->CreateSensor(142, 433, 10, 10, false, 0 , -20);
 	Arrow_Right = App->physics->CreateSensor(442, 433, 10, 10, false, 0 , 20);
+}
+
+void ModuleSceneIntro::LoadWavFiles() {
+
+	//Loading all FX
+	lostBall = App->audio->LoadFx("audio/fx/Lost_ball.wav");
+	bell = App->audio->LoadFx("audio/fx/Middle_Circle.wav");
+	combo = App->audio->LoadFx("audio/fx/Bigcombo.wav");
+	greensensor = App->audio->LoadFx("audio/fx/green_light.wav");
 }
