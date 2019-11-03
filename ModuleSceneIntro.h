@@ -21,6 +21,7 @@ public:
 	bool CleanUp();
 	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
 
+	void DrawMap();
 	void SetBackgroundColliders();
 	void SetPaddles();	
 	void SetThrower();
@@ -84,6 +85,7 @@ public:
 	SDL_Rect RebotersTF;
 
 	/*Middle Circles*/
+	SDL_Rect CircleGlow;
 	PhysBody* CircleOne;
 	PhysBody* CircleTwo;
 	PhysBody* CircleThree;
@@ -92,6 +94,9 @@ public:
 	PhysBody* SensCircleOne;
 	PhysBody* SensCircleTwo;
 	PhysBody* SensCircleThree;
+	bool EnableCircleOne = false;
+	bool EnableCircleTwo = false;
+	bool EnableCircleThree = false;
 
 	/*Top Green Sensors*/
 	PhysBody* GreenSensorOne;

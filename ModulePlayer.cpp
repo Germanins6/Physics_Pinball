@@ -46,12 +46,13 @@ update_status ModulePlayer::Update()
 	BlitPoints();
 	DebugCreateCircles();				//REMEMBER DELETE THIS FUNCTION OR SET IN DEBUG MODE NOW IN TEST
 	if (reset) ResetBall();
-
+	ResetGame();
+	LOG("TOTALPOINTS: %i   MAXPOINTS; %i", TotalScore, MaxScore);
 	return UPDATE_CONTINUE;
 }
 
 void ModulePlayer::BlitPoints() {
-	sprintf_s(points_text, 10, "%7d", puntos);
+	sprintf_s(points_text, 10, "%7d", CurrentScore);
 	App->fonts->BlitText(200, 30, fontpoints, points_text);
 }
 
@@ -77,5 +78,15 @@ void ModulePlayer::DebugCreateCircles() {
 	{
 		App->scene_intro->circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 14));
 		App->renderer->Blit(App->scene_intro->circle, App->input->GetMouseX(), App->input->GetMouseY());
+	}
+}
+
+void ModulePlayer::ResetGame() {
+	TotalScore += CurrentScore;
+	if (lifes <= 0) {
+		if (TotalScore > MaxScore) MaxScore = TotalScore;
+		CurrentScore = 0;
+		lifes = 3;
+		ResetBall();
 	}
 }

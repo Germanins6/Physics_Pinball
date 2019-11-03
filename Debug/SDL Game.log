@@ -1,5 +1,31 @@
+<<<<<<< HEAD
 ﻿  ModuleSceneIntro.cpp
 C:\Users\Pol\Documents\GitHub\Physics_Pinball\ModuleSceneIntro.cpp(83,9): warning C4101: 'y': variable local sin referencia
 C:\Users\Pol\Documents\GitHub\Physics_Pinball\ModuleSceneIntro.cpp(83,6): warning C4101: 'x': variable local sin referencia
 C:\Users\Pol\Documents\GitHub\Physics_Pinball\ModuleSceneIntro.cpp(402,47): warning C4244: 'argumento': conversión de 'int' a 'float32'; posible pérdida de datos
   SDL Game.vcxproj -> C:\Users\Pol\Documents\GitHub\Physics_Pinball\Debug\2D Physics - class 4.exe
+=======
+﻿  Application.cpp
+  ModulePhysics.cpp
+\\Mac\Home\Documents\GitHub\Physics_Pinball\ModulePhysics.cpp(109,23): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+\\Mac\Home\Documents\GitHub\Physics_Pinball\ModulePhysics.cpp(110,25): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+\\Mac\Home\Documents\GitHub\Physics_Pinball\ModulePhysics.cpp(171,20): warning C4018: '<': no coinciden signed/unsigned
+\\Mac\Home\Documents\GitHub\Physics_Pinball\ModulePhysics.cpp(297,9): warning C4244: '=': conversión de 'int' a 'float32'; posible pérdida de datos
+\\Mac\Home\Documents\GitHub\Physics_Pinball\ModulePhysics.cpp(298,9): warning C4244: '=': conversión de 'int' a 'float32'; posible pérdida de datos
+\\Mac\Home\Documents\GitHub\Physics_Pinball\ModulePhysics.cpp(299,9): warning C4244: '=': conversión de 'int' a 'float32'; posible pérdida de datos
+\\Mac\Home\Documents\GitHub\Physics_Pinball\ModulePhysics.cpp(300,9): warning C4244: '=': conversión de 'int' a 'float32'; posible pérdida de datos
+\\Mac\Home\Documents\GitHub\Physics_Pinball\ModulePhysics.cpp(301,40): warning C4244: 'argumento': conversión de 'float32' a 'int'; posible pérdida de datos
+\\Mac\Home\Documents\GitHub\Physics_Pinball\ModulePhysics.cpp(301,36): warning C4244: 'argumento': conversión de 'float32' a 'int'; posible pérdida de datos
+\\Mac\Home\Documents\GitHub\Physics_Pinball\ModulePhysics.cpp(301,32): warning C4244: 'argumento': conversión de 'float32' a 'int'; posible pérdida de datos
+\\Mac\Home\Documents\GitHub\Physics_Pinball\ModulePhysics.cpp(301,28): warning C4244: 'argumento': conversión de 'float32' a 'int'; posible pérdida de datos
+\\Mac\Home\Documents\GitHub\Physics_Pinball\ModulePhysics.cpp(370,13): warning C4244: 'inicializando': conversión de 'int' a 'float'; posible pérdida de datos
+\\Mac\Home\Documents\GitHub\Physics_Pinball\ModulePhysics.cpp(371,13): warning C4244: 'inicializando': conversión de 'int' a 'float'; posible pérdida de datos
+  ModulePlayer.cpp
+  ModuleSceneIntro.cpp
+\\Mac\Home\Documents\GitHub\Physics_Pinball\ModulePhysics.cpp(377,27): warning C4244: 'return': conversión de 'float32' a 'int'; posible pérdida de datos
+\\Mac\Home\Documents\GitHub\Physics_Pinball\ModuleSceneIntro.cpp(77,9): warning C4101: 'y': variable local sin referencia
+\\Mac\Home\Documents\GitHub\Physics_Pinball\ModuleSceneIntro.cpp(77,6): warning C4101: 'x': variable local sin referencia
+  Generando código...
+\\Mac\Home\Documents\GitHub\Physics_Pinball\ModuleSceneIntro.cpp(416,47): warning C4244: 'argumento': conversión de 'int' a 'float32'; posible pérdida de datos
+  SDL Game.vcxproj -> \\Mac\Home\Documents\GitHub\Physics_Pinball\Debug\2D Physics - class 4.exe
+>>>>>>> 34cdc3d7f5c1fc1ebbdf660041edb36682a8dd22
